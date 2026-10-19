@@ -1,0 +1,19 @@
+{
+  "name": "glzzlexi-website",
+  "version": "1.0.0",
+  "description": "Official company website for GlzzLexi Studios",
+  "scripts": {
+    "build:css": "npx clean-css-cli -o style.min.css src/style.css",
+    "build:js": "npx terser src/app.js -c -m --comments false -o script.min.js",
+    "build": "npm run build:css && npm run build:js",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "glzzlexi",
+    "indie-game-studio",
+    "roblox",
+    "desktop-games"
+  ],
+  "author": "John Gabriel (Gabriel Ronao) <GlzzLexi Studios>",
+  "license": "MIT"
+}
