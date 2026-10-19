@@ -1,9 +1,10 @@
 /**
  * GlzzLexiBear Game Studios - Interactive Systems
- * Floating Glaze Sprinkles Canvas, Juicy Audio FX, Game Dossiers & Navigation
+ * 4 3D First-Person Desktop Prototypes, Community Greenlight Voting,
+ * Glaze Sprinkles Canvas, Audio Synthesis & Dossiers
  */
 
-// --- 1. Juicy Confectionary Audio Synthesis (Web Audio API) ---
+// --- 1. Confectionary Sound Effects (Web Audio API) ---
 class GlazeAudioFX {
   constructor() {
     this.ctx = null;
@@ -57,11 +58,11 @@ class GlazeAudioFX {
     this.playPop(740, 0.03);
   }
 
-  playSuccess() {
+  playVote() {
     if (!this.enabled || !this.ctx) return;
-    const notes = [440, 554.37, 659.25, 880];
-    notes.forEach((note, i) => {
-      setTimeout(() => this.playPop(note, 0.1), i * 75);
+    const chords = [523.25, 659.25, 783.99, 1046.50];
+    chords.forEach((note, i) => {
+      setTimeout(() => this.playPop(note, 0.12), i * 60);
     });
   }
 }
@@ -121,7 +122,6 @@ function initGlazeCanvas() {
       this.y += this.vy;
       this.angle += this.vAngle;
 
-      // Mouse repulsion
       const dx = this.x - mouseX;
       const dy = this.y - mouseY;
       const dist = Math.sqrt(dx * dx + dy * dy);
@@ -131,7 +131,6 @@ function initGlazeCanvas() {
         this.y += (dy / dist) * force * 3;
       }
 
-      // Bounds wrap
       if (this.x < -20) this.x = width + 20;
       if (this.x > width + 20) this.x = -20;
       if (this.y < -20) this.y = height + 20;
@@ -173,168 +172,203 @@ function initGlazeCanvas() {
   loop();
 }
 
-// --- 3. Game Portfolio Catalog Filtering ---
-function initCatalogFilters() {
-  const tabs = document.querySelectorAll('.filter-tab');
-  const cards = document.querySelectorAll('.game-item-card');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      glazeAudio.playClick();
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const filter = tab.getAttribute('data-filter');
-
-      cards.forEach(card => {
-        const cat = card.getAttribute('data-category');
-        if (filter === 'all' || cat === filter) {
-          card.style.display = 'flex';
-          setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 10);
-        } else {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(16px)';
-          setTimeout(() => {
-            card.style.display = 'none';
-          }, 200);
-        }
-      });
-    });
-  });
-}
-
-// --- 4. Game Dossier Database & Modal System ---
-const GLZZ_GAMES = {
-  sugarfist: {
-    title: "SugarFist: Protocol Bear",
-    status: "Flagship Desktop PC Project (Target: 2027)",
-    genre: "Isometric Cyber-Confectionary Action Roguelike",
-    platform: "Steam (Windows PC & Steam Deck Verified)",
-    engine: "Unreal Engine 5.4 / DirectX 12 / Lumen",
-    summary: `SugarFist: Protocol Bear combines GlzzLexiBear's juicy, vibrant art style with razor-sharp, punishing desktop combat. Step into the paw-guards of a cybernetically-enhanced teddy operative fighting through a rogue mechanized confectionary megacity.`,
-    specs: [
-      { label: "Input Precision", value: "8000Hz RawInput mouse & rebindable mechanical keyboard mapping" },
-      { label: "Target Refresh", value: "Uncapped framerate (144Hz - 240Hz+ battlestation ready)" },
-      { label: "Ultrawide Support", value: "Native 21:9 & 32:9 HUD scaling with zero letterboxing" },
-      { label: "Steam Deck", value: "Tailored 60 FPS profile with custom gyro aiming" }
+// --- 3. The 4 Prototypes Database ---
+const PROTOTYPES = {
+  nine_to_five: {
+    title: "9-5 Get Me Out",
+    tagline: "Employee of the month. Your boss will do whatever it takes to keep you trapped.",
+    genre: "3D First-Person Workplace Stealth & Psychological Escape Thriller",
+    engine: "Desktop PC / DirectX 12 / High-Fidelity 3D First Person",
+    image: "assets/prototype_9_5.jpg",
+    logline: `You are the ultimate 9-to-5 corporate grinder: sharp, efficient, and successful. But your sinister boss knows you are planning to quit. Desperate to keep his top performer, he secretly sabotages your promotions, intercepts your resignation letters, and locks down the floor after hours.`,
+    mechanics: [
+      "Cubicle Stealth: Crouch behind partitions, peek over monitors, and time your moves around roaming HR drones and security cameras.",
+      "Evidence & Blackmail: Dig through corporate shredders, hack the boss's server room, and collect incriminating evidence of sabotage to earn your legal freedom.",
+      "Sanity & Overtime: The longer you remain trapped after 5:00 PM, the more the office warps with psychological paranoia."
     ],
-    features: [
-      "Dynamic Glaze Gauge: Chaining frame-perfect parries charges your sweet glaze overdrive for kinetic room-clearing combos.",
-      "Destructible candy environments with realistic Chaos physics and particle-heavy impact feedback.",
-      "Full offline singleplayer campaign with scheduled co-op boss raids."
-    ]
+    controls: "WASD Movement, Left Shift Sprint, Left Ctrl Crouch, E Interact / Hack, Q/E Peek Lean, Mouse Look."
   },
-  glazerunner: {
-    title: "Glaze Runner: Overdrive",
-    status: "PC Demo In Glzz Labs Testing",
-    genre: "High-Speed Anti-Gravity Confectionary Racer",
-    platform: "Steam (Windows & macOS)",
-    engine: "Custom Low-Latency Engine + Vulkan",
-    summary: `Supersonic anti-gravity arcade speedrunning along magnetic syrup tracks. Master tight analog steering, airbrake drift boosts, and dynamic soundtrack beat-matching.`,
-    specs: [
-      { label: "Engine Latency", value: "Sub-4ms input-to-photon latency target" },
-      { label: "Course Editor", value: "Integrated Steam Workshop track creator" },
-      { label: "Multiplayer", value: "16-Player Rollback Netcode with Ghost Leaderboards" },
-      { label: "Audio Mix", value: "Reactive electronic chiptune basslines" }
+
+  study_picky: {
+    title: "Study Picky",
+    tagline: "Final exam starts in 2 hours. Your brain has chosen to remember a 2012 jingle instead.",
+    genre: "3D First-Person ADHD & Memory Sensory Overload Survival Simulator",
+    engine: "Desktop PC / Physicalized 3D Desk Environment",
+    image: "assets/prototype_study.jpg",
+    logline: `You sit at your study desk under a warm lamp with an insurmountable stack of textbooks. Your goal is simple: study and get a passing grade. The problem? Your character suffers from extreme memory lapses, intrusive daydream apparitions, paper airplanes flying across your vision, and sensory overload.`,
+    mechanics: [
+      "Daydream Defense: Swat away floating intrusive neon thoughts and distracting paper planes with your ruler before they erase your study progress.",
+      "Memory Flashcards: Retain formulas and facts before sudden brain fog washes them away.",
+      "Caffeine vs. Jitters: Sip coffee to boost focus speed, but balance your heart-rate meter to prevent catastrophic anxiety panics."
     ],
-    features: [
-      "Analog throttle calibration designed for Hall-effect gamepad triggers and mechanical switches.",
-      "Import your own music tracks for procedural speed course generation.",
-      "Global speedrun leaderboards and replay sharing."
-    ]
+    controls: "Mouse Cursor Free-Look / Desk Hand Interaction, Space Swat Distraction, Tab Check Notes, Left Click Highlight Text."
   },
-  bearwitch: {
-    title: "Bear Witch: Sweet Alchemist",
-    status: "Original Studio Classic (Available)",
-    genre: "Cozy RPG / Procedural Dungeon Delver",
-    platform: "Desktop PC & Mobile",
-    engine: "Unity 3D / Universal Render Pipeline",
-    summary: `The game that defined the GlzzLexiBear charm: bake sweet enchanted pastries by morning, craft magical remedies, and descend into whimsical catacombs by moonlight.`,
-    specs: [
-      { label: "Playtime", value: "12+ Handcrafted hours of narrative & dungeon exploration" },
-      { label: "Audio", value: "Original 24-track acoustic piano & accordion soundtrack" },
-      { label: "Controller", value: "Full gamepad & touch screen gesture support" },
-      { label: "Languages", value: "English, Japanese, German, French, Spanish" }
+
+  mark_mark: {
+    title: "Mark Mark What The",
+    tagline: "Two brains fighting over one pair of hands. Zero peace.",
+    genre: "3D First-Person Dual-Personality Chaotic Puzzle-Action Adventure",
+    engine: "Desktop PC / Dynamic Shader & Glitch Engine",
+    image: "assets/prototype_mark.jpg",
+    logline: `You play as Mark, a sharp-witted operative tasked with solving high-stakes escape scenarios. However, you share your body with a manic alter-ego who can hijack control of your hands at any second. Your left hand tries to defuse the bomb while your right hand suddenly decides to slap a guard or throw your tools across the room.`,
+    mechanics: [
+      "Dual Control Hijacking: Adapt when the screen glitches into magenta fury and your alter-ego takes over your movement and mouse input.",
+      "Chaotic Cooperation: Sometimes the alter-ego's unhinged strength is the only way to smash locked vault doors that Mark cannot crack.",
+      "Mirror Diagnostics: Talk to yourself in mirrors to negotiate temporary truces and synchronize your powers."
     ],
-    features: [
-      "Witty, humorous character interactions and cozy village management.",
-      "Deep alchemical recipe experimentation with endless pastry variations.",
-      "Zero pay-to-win mechanics — pure wholesome gameplay."
-    ]
+    controls: "WASD Walk, Left Click (Mark Action / Cyan), Right Click (Alter-Ego Punch / Magenta), Q Argue With Yourself."
   },
-  honeygrid: {
-    title: "HoneyGrid Tactics",
-    status: "Glzz Labs Sandbox Prototype",
-    genre: "Hexagonal Squad Strategy / Roguelite",
-    platform: "Windows Desktop PC",
-    engine: "Godot 4.2 / High-Performance C# Core",
-    summary: `Experimental tabletop-style squad skirmishes featuring customizable bear mechs on dynamic honeycomb grid battlefields with systemic chain reactions.`,
-    specs: [
-      { label: "Turn System", value: "Simultaneous timeline execution" },
-      { label: "Resolution", value: "Pixel-perfect desktop scaling up to 4K" },
-      { label: "Modding", value: "JSON-based mech weapon tuning & skinning" },
-      { label: "Controls", value: "Designed specifically for fast mouse command macros" }
+
+  guys_watch: {
+    title: "Guys Watch Me Now",
+    tagline: "Play for the views. Obey the chat. Survive the stream.",
+    genre: "3D First-Person Interactive AI Livestreamer Simulator & Psychological Horror-Comedy",
+    engine: "Desktop PC / Real-Time Simulated AI Chat Engine",
+    image: "assets/prototype_streamer.jpg",
+    logline: `You play as Clyde, an ambitious desktop live streamer trying to make it big. Sitting at your battlestation, an interactive simulated AI audience analyzes your every camera angle, microphone inflection, and game skill in real time. To keep the viewer count alive, you must juggle streaming actual games while fulfilling escalating, unhinged chat dares.`,
+    mechanics: [
+      "Interactive AI Chat: Viewers roast your plays, spam custom memes, send TTS donations, and vote on what you must do next.",
+      "Escalating Apartment Dares: The chat demands you investigate weird noises in your dark hallway or order cursed midnight food deliveries.",
+      "Swatting & Clout: Balance going viral against staying safe as paranoid troll viewers threaten to swat your house."
     ],
-    features: [
-      "Tactile honey-trap hazards that slow down and immobilize enemy forces.",
-      "Custom squad mech builder with interchangeable chassis and armor plating.",
-      "Community skirmish map sharing."
-    ]
+    controls: "WASD Walk around apartment, Mouse Look, Left Click Keyboard/Mouse Gaming, F Adjust Stream Cam, T Answer Chat."
   }
 };
 
+// --- 4. Community Greenlight Voting System ---
+const INITIAL_VOTES = {
+  nine_to_five: 184,
+  study_picky: 162,
+  mark_mark: 171,
+  guys_watch: 198
+};
+
+function getVoteData() {
+  const saved = localStorage.getItem('glzz_prototype_votes');
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch (e) {}
+  }
+  return { ...INITIAL_VOTES };
+}
+
+function saveVoteData(data) {
+  localStorage.setItem('glzz_prototype_votes', JSON.stringify(data));
+}
+
+function updateVotingUI() {
+  const votes = getVoteData();
+  const total = Object.values(votes).reduce((a, b) => a + b, 0);
+
+  Object.keys(votes).forEach(key => {
+    const count = votes[key];
+    const pct = Math.round((count / total) * 100);
+
+    const bar = document.getElementById(`bar-${key}`);
+    const countLabel = document.getElementById(`count-${key}`);
+    const cardVoteLabel = document.getElementById(`votes-card-${key}`);
+
+    if (bar) bar.style.width = `${pct}%`;
+    if (countLabel) countLabel.textContent = `${count} votes (${pct}%)`;
+    if (cardVoteLabel) cardVoteLabel.textContent = `🔥 ${count} Votes (${pct}%)`;
+  });
+
+  const userVote = localStorage.getItem('glzz_user_cast_vote');
+  if (userVote) {
+    document.querySelectorAll('.btn-vote').forEach(btn => {
+      btn.classList.remove('voted');
+      btn.textContent = btn.getAttribute('data-original-text') || btn.textContent;
+    });
+
+    const votedItem = document.querySelector(`.vote-item[data-game="${userVote}"] .btn-vote`);
+    if (votedItem) {
+      if (!votedItem.getAttribute('data-original-text')) {
+        votedItem.setAttribute('data-original-text', votedItem.textContent);
+      }
+      votedItem.classList.add('voted');
+      votedItem.textContent = "Your Vote ✓";
+    }
+  }
+}
+
+function castVote(gameKey) {
+  glazeAudio.playVote();
+  const votes = getVoteData();
+  const previousVote = localStorage.getItem('glzz_user_cast_vote');
+
+  if (previousVote && votes[previousVote] && previousVote !== gameKey) {
+    votes[previousVote] = Math.max(0, votes[previousVote] - 1);
+  }
+
+  if (previousVote !== gameKey) {
+    votes[gameKey] = (votes[gameKey] || 0) + 1;
+  }
+
+  saveVoteData(votes);
+  localStorage.setItem('glzz_user_cast_vote', gameKey);
+  updateVotingUI();
+
+  const game = PROTOTYPES[gameKey];
+  showGlazedToast(`VOTE RECORDED! You voted for "${game ? game.title : gameKey}"! Thank you for shaping our desktop future.`);
+}
+
+// --- 5. Prototype Dossier Modal System ---
 function openGameModal(key) {
   glazeAudio.playClick();
-  const game = GLZZ_GAMES[key];
+  const game = PROTOTYPES[key];
   if (!game) return;
 
   const modal = document.getElementById('game-modal');
   const container = document.getElementById('modal-content');
 
-  const specsHtml = game.specs.map(s => `
-    <div class="modal-spec-card">
-      <span>${s.label}</span>
-      <strong>${s.value}</strong>
-    </div>
-  `).join('');
-
-  const featuresHtml = game.features.map(f => `
-    <li style="margin-bottom: 8px; color: #cbd5e1; font-size: 0.94rem;">${f}</li>
+  const mechanicsHtml = game.mechanics.map(m => `
+    <li style="margin-bottom: 10px; color: #cbd5e1; font-size: 0.94rem; line-height: 1.6;">${m}</li>
   `).join('');
 
   container.innerHTML = `
-    <div style="margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 18px;">
-      <span class="category-pills" style="margin-bottom: 8px;">
-        <span class="pill-berry">${game.status}</span>
-      </span>
-      <h2 style="font-family: var(--font-display); font-size: 1.9rem; color: #fff; margin: 8px 0 4px 0;">${game.title}</h2>
-      <div style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--glaze-honey);">${game.genre} &bull; ${game.engine}</div>
+    <div class="modal-hero-img-wrap">
+      <img src="${game.image}" alt="${game.title} Concept Screenshot" class="modal-hero-img">
     </div>
 
-    <p style="color: #94a3b8; font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px;">
-      ${game.summary}
+    <div style="margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 16px;">
+      <span class="section-tag-badge" style="margin-bottom: 8px;">3D FIRST-PERSON PROTOTYPE</span>
+      <h2 style="font-family: var(--font-display); font-size: 2rem; color: #fff; margin: 8px 0 4px 0;">${game.title}</h2>
+      <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--glaze-coral);">${game.genre}</div>
+    </div>
+
+    <p style="color: #fff; font-size: 1.08rem; font-style: italic; margin-bottom: 16px; border-left: 3px solid var(--glaze-honey); padding-left: 12px;">
+      "${game.tagline}"
     </p>
 
-    <h4 style="font-family: var(--font-display); font-size: 1.05rem; color: #fff; margin-bottom: 10px;">DESKTOP & TECHNICAL ARCHITECTURE</h4>
-    <div class="modal-spec-grid">
-      ${specsHtml}
-    </div>
+    <p style="color: #94a3b8; font-size: 1.02rem; line-height: 1.7; margin-bottom: 24px;">
+      ${game.logline}
+    </p>
 
-    <h4 style="font-family: var(--font-display); font-size: 1.05rem; color: #fff; margin: 24px 0 10px 0;">GAMEPLAY HIGHLIGHTS</h4>
-    <ul style="padding-left: 20px; line-height: 1.6; margin-bottom: 30px;">
-      ${featuresHtml}
+    <h4 style="font-family: var(--font-display); font-size: 1.05rem; color: #fff; margin-bottom: 10px;">CORE GAMEPLAY SYSTEMS</h4>
+    <ul style="padding-left: 20px; margin-bottom: 24px;">
+      ${mechanicsHtml}
     </ul>
 
-    <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-      <button class="btn btn-glazed" onclick="showGlazedToast('Application logged for ${game.title} private testing!')">
-        <span>Request Alpha Key</span>
+    <h4 style="font-family: var(--font-display); font-size: 1.05rem; color: #fff; margin-bottom: 10px;">DESKTOP PC CONTROLS & ARCHITECTURE</h4>
+    <div class="modal-spec-grid">
+      <div class="modal-spec-card">
+        <span>Control Scheme</span>
+        <strong>${game.controls}</strong>
+      </div>
+      <div class="modal-spec-card">
+        <span>Target Platform</span>
+        <strong>Steam (Windows PC) & Steam Deck</strong>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 24px;">
+      <button class="btn btn-glazed" onclick="castVote('${key}'); closeGameModal();">
+        <span>Vote to Build This First!</span>
         <span class="btn-arrow">&rarr;</span>
       </button>
       <button class="btn btn-outline" onclick="closeGameModal()">
-        <span>Close Dossier</span>
+        <span>Back to Prototypes</span>
       </button>
     </div>
   `;
@@ -358,14 +392,12 @@ function closeModalOnBackdrop(e) {
   }
 }
 
-// ESC closes modal
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeGameModal();
 });
 
-// --- 5. Glazed Toast Notifications ---
-function showGlazedToast(msg, duration = 3500) {
-  glazeAudio.playSuccess();
+// --- 6. Glazed Toast Notifications ---
+function showGlazedToast(msg, duration = 4000) {
   const wrapper = document.getElementById('toast-wrapper');
   if (!wrapper) return;
 
@@ -391,15 +423,17 @@ function showGlazedToast(msg, duration = 3500) {
   }, duration);
 }
 
-// --- 6. Form Submission ---
+// --- 7. Playtest Form Submission ---
 function handleFormSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('form-name').value;
-  showGlazedToast(`Welcome to the crew, ${name}! Your desktop playtest application has been received.`);
+  const proto = document.getElementById('form-prototype').value;
+  glazeAudio.playVote();
+  showGlazedToast(`Welcome, ${name}! Your application for the "${proto}" desktop playtest has been received.`);
   e.target.reset();
 }
 
-// --- 7. Audio Toggle Control ---
+// --- 8. Audio Toggle ---
 function initAudioButton() {
   const btn = document.getElementById('sfx-toggle');
   if (!btn) return;
@@ -419,14 +453,13 @@ function initAudioButton() {
     }
   });
 
-  // Hover sound for interactive elements
-  const hoverables = document.querySelectorAll('.btn, .game-item-card, .filter-tab, .social-pill');
+  const hoverables = document.querySelectorAll('.btn, .prototype-card, .btn-vote, .social-pill');
   hoverables.forEach(el => {
     el.addEventListener('mouseenter', () => glazeAudio.playHover());
   });
 }
 
-// --- 8. Navigation & Sticky Scroll ---
+// --- 9. Navigation ---
 function initNavigation() {
   const header = document.getElementById('header');
   const toggle = document.getElementById('menu-toggle');
@@ -452,7 +485,6 @@ function initNavigation() {
     });
   }
 
-  // Active section spy
   const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
     const scrollY = window.pageYOffset;
@@ -472,17 +504,16 @@ function initNavigation() {
   });
 }
 
-// --- 9. Dynamic Year ---
 function setYear() {
   const y = document.getElementById('current-year');
   if (y) y.textContent = new Date().getFullYear();
 }
 
-// Ready
+// Document Ready
 document.addEventListener('DOMContentLoaded', () => {
   initGlazeCanvas();
-  initCatalogFilters();
   initAudioButton();
   initNavigation();
+  updateVotingUI();
   setYear();
 });
