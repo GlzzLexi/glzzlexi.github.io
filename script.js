@@ -236,6 +236,9 @@ const PROTOTYPES = {
 };
 
 // --- 4. Community Greenlight Voting System ---
+// Set your deployed Cloudflare Worker or Render URL here (e.g. "https://glzz-voting-api.yourname.workers.dev")
+const API_BASE_URL = ""; 
+
 const INITIAL_VOTES = {
   nine_to_five: 184,
   study_picky: 162,
@@ -243,7 +246,7 @@ const INITIAL_VOTES = {
   guys_watch: 198
 };
 
-function getVoteData() {
+function getLocalVoteData() {
   const saved = localStorage.getItem('glzz_prototype_votes');
   if (saved) {
     try {
@@ -253,17 +256,37 @@ function getVoteData() {
   return { ...INITIAL_VOTES };
 }
 
-function saveVoteData(data) {
+function saveLocalVoteData(data) {
   localStorage.setItem('glzz_prototype_votes', JSON.stringify(data));
 }
 
-function updateVotingUI() {
-  const votes = getVoteData();
+async function fetchLiveVotes() {
+  if (!API_BASE_URL) {
+    updateVotingUI(getLocalVoteData());
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/votes`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && data.votes) {
+        updateVotingUI(data.votes);
+        return;
+      }
+    }
+  } catch (err) {
+    console.warn("Could not reach live voting backend, using local tallies", err);
+  }
+  updateVotingUI(getLocalVoteData());
+}
+
+function updateVotingUI(votes) {
   const total = Object.values(votes).reduce((a, b) => a + b, 0);
 
   Object.keys(votes).forEach(key => {
     const count = votes[key];
-    const pct = Math.round((count / total) * 100);
+    const pct = total > 0 ? Math.round((count / total) * 100) : 25;
 
     const bar = document.getElementById(`bar-${key}`);
     const countLabel = document.getElementById(`count-${key}`);
@@ -278,7 +301,8 @@ function updateVotingUI() {
   if (userVote) {
     document.querySelectorAll('.btn-vote').forEach(btn => {
       btn.classList.remove('voted');
-      btn.textContent = btn.getAttribute('data-original-text') || btn.textContent;
+      const originalText = btn.getAttribute('data-original-text');
+      if (originalText) btn.textContent = originalText;
     });
 
     const votedItem = document.querySelector(`.vote-item[data-game="${userVote}"] .btn-vote`);
@@ -292,9 +316,40 @@ function updateVotingUI() {
   }
 }
 
-function castVote(gameKey) {
+async function castVote(gameKey) {
   glazeAudio.playVote();
-  const votes = getVoteData();
+  const game = PROTOTYPES[gameKey];
+  const gameTitle = game ? game.title : gameKey;
+
+  // 1. If live backend is configured
+  if (API_BASE_URL) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/vote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ game: gameKey })
+      });
+
+      const data = await res.json();
+
+      if (res.status === 403 || data.alreadyVoted) {
+        showGlazedToast(`⚠️ Your IP network has already cast a vote! Each player gets 1 vote to keep the competition fair.`);
+        return;
+      }
+
+      if (data.success && data.votes) {
+        localStorage.setItem('glzz_user_cast_vote', gameKey);
+        updateVotingUI(data.votes);
+        showGlazedToast(`🎉 OFFICIAL VOTE LOGGED! You voted for "${gameTitle}"! Backend recorded your vote.`);
+        return;
+      }
+    } catch (e) {
+      console.warn("Backend error, falling back to local storage vote", e);
+    }
+  }
+
+  // 2. Local Fallback Mode
+  const votes = getLocalVoteData();
   const previousVote = localStorage.getItem('glzz_user_cast_vote');
 
   if (previousVote && votes[previousVote] && previousVote !== gameKey) {
@@ -305,12 +360,11 @@ function castVote(gameKey) {
     votes[gameKey] = (votes[gameKey] || 0) + 1;
   }
 
-  saveVoteData(votes);
+  saveLocalVoteData(votes);
   localStorage.setItem('glzz_user_cast_vote', gameKey);
-  updateVotingUI();
+  updateVotingUI(votes);
 
-  const game = PROTOTYPES[gameKey];
-  showGlazedToast(`VOTE RECORDED! You voted for "${game ? game.title : gameKey}"! Thank you for shaping our desktop future.`);
+  showGlazedToast(`🎉 VOTE RECORDED! You voted for "${gameTitle}"! Connect Cloudflare Worker to enable global IP deduplication.`);
 }
 
 // --- 5. Prototype Dossier Modal System ---
@@ -514,6 +568,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initGlazeCanvas();
   initAudioButton();
   initNavigation();
-  updateVotingUI();
+  fetchLiveVotes();
   setYear();
 });
