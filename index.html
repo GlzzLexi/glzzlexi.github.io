@@ -3,48 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GlzzLexiBear | Sharp Wit. Sweet Glaze. — Handcrafted Desktop Indie Games</title>
-  <meta name="description" content="Independent game studio founded by a 3rd-year Computer Engineering student. Evolving from Roblox hits to our first standalone paid desktop PC game, distributed directly right here.">
-  <meta name="author" content="GlzzLexiBear Studios">
-
-  <!-- Typography: Fredoka + Space Grotesk + JetBrains Mono -->
+  <title>GlzzLexiBear | Games by John</title>
+  <meta name="description" content="Games by GlzzLexiBear. 3rd year CpE student making Roblox and desktop games.">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="assets/logo.png">
 </head>
 <body>
-  <!-- Ambient Glaze Sprinkles Canvas -->
-  <canvas id="glaze-canvas"></canvas>
+  <canvas id="sprinkles"></canvas>
 
-  <!-- Sticky Studio Header -->
-  <header class="site-header" id="header">
-    <div class="container header-inner">
-      <a href="#hero" class="brand">
-        <img src="assets/logo.png" alt="GlzzLexiBear Logo" class="brand-logo">
+  <header class="navbar" id="top">
+    <div class="wrap nav-content">
+      <a href="#top" class="brand">
+        <img src="assets/logo.png" alt="GlzzLexiBear" class="logo">
       </a>
 
-      <nav class="nav" id="main-nav">
-        <a href="#prototypes" class="nav-link">4 Prototypes</a>
-        <a href="#voting" class="nav-link">Greenlight Vote</a>
-        <a href="#story" class="nav-link">Roblox &rarr; PC Story</a>
-        <a href="#direct-release" class="nav-link">Direct Store</a>
-        <a href="#devlog" class="nav-link">CpE Devlog</a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#games">Prototypes</a>
+        <a href="#vote">Vote</a>
+        <a href="#about">About Me</a>
+        <a href="#contact">Contact</a>
       </nav>
 
-      <div class="header-tools">
-        <button id="sfx-btn" class="tool-pill" title="Toggle UI Sound" aria-label="Toggle Sound">
-          <span class="pill-dot"></span>
-          <span id="sfx-text">AUDIO: OFF</span>
-        </button>
-
-        <a href="#voting" class="btn btn-primary btn-sm">
-          <span>Cast Vote</span>
-        </a>
-
-        <button class="burger-btn" id="burger-btn" aria-label="Toggle Menu">
+      <div class="nav-actions">
+        <button id="sfx-btn" class="pill-btn" aria-label="Toggle sound">SFX: OFF</button>
+        <a href="#vote" class="btn btn-sm">Vote</a>
+        <button class="burger" id="burger" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -52,535 +40,261 @@
   </header>
 
   <main>
-    <!-- HERO SECTION: REAL, GROUNDED, INDIE -->
-    <section class="hero-section" id="hero">
-      <div class="container hero-grid">
-        <div class="hero-left">
-          <div class="status-pill">
-            <span class="live-blink"></span>
-            <span>SOLO DEV &bull; 3RD YEAR CpE STUDENT &bull; ROBLOX &rarr; DESKTOP</span>
-          </div>
-
-          <h1 class="hero-title">
-            SHARP WIT.<br>
-            SWEET GLAZE.<br>
-            <span class="highlight-text">NO CORPORATE FLUFF.</span>
-          </h1>
-
-          <p class="hero-desc">
-            Kamusta! I'm the founder of <strong>GlzzLexiBear</strong>. After building viral gameplay loops on <strong>Roblox</strong>, I’m building my first standalone <strong>3D First-Person Desktop PC game</strong>. 
-            Walang Steam 30% cut, walang \$100 publisher tollgate — the winning game will be sold and downloaded <strong>directly right here on this website</strong>.
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-text">
+          <span class="tag">3rd Year Computer Engineering Student</span>
+          <h1>I make games.<br><span class="accent">Here are 4 desktop prototypes.</span></h1>
+          <p>
+            Hi, I'm the one making games under <strong>GlzzLexiBear</strong>. Most of my games right now are on <strong>Roblox</strong>, but I'm planning to make my first standalone 3D first-person desktop game.
           </p>
-
-          <div class="hero-cta-bar">
-            <a href="#voting" class="btn btn-primary btn-lg">
-              <span>Vote Which 1 Gets Built</span>
-              <span class="btn-arrow">&rarr;</span>
-            </a>
-            <a href="#prototypes" class="btn btn-secondary btn-lg">
-              <span>Inspect 4 Prototypes</span>
-            </a>
-          </div>
-
-          <div class="hero-specs">
-            <div class="spec-node">
-              <span class="spec-k">DISTRIBUTION</span>
-              <span class="spec-v">Direct on this site</span>
-            </div>
-            <div class="spec-div"></div>
-            <div class="spec-node">
-              <span class="spec-k">PERSPECTIVE</span>
-              <span class="spec-v">3D First Person</span>
-            </div>
-            <div class="spec-div"></div>
-            <div class="spec-node">
-              <span class="spec-k">SELECTION</span>
-              <span class="spec-v">Only 1 Winner</span>
-            </div>
+          <p>
+            Di ko muna ilalagay sa Steam kasi may \$100 fee per game and I don't have the budget for that yet. I'll just sell and release the game directly on this website. Since ako lang mag-isa gumagawa habang nag-aaral, <strong>isa lang muna ang tatapusin ko</strong>. Vote below which one you want me to make first.
+          </p>
+          <div class="hero-btns">
+            <a href="#vote" class="btn">Vote for a Game &rarr;</a>
+            <a href="#games" class="btn btn-outline">Check the 4 Prototypes</a>
           </div>
         </div>
 
-        <div class="hero-right">
-          <div class="indie-poster-frame">
-            <div class="poster-card">
-              <div class="poster-head">
-                <span class="tag-terminal">GLZZ_TERMINAL_v1.0</span>
-                <span class="tag-status">ONLINE</span>
-              </div>
-              <div class="poster-body">
-                <img src="assets/logo.png" alt="GlzzLexiBear Logo" class="poster-logo-img">
-                <div class="poster-quote">
-                  "Sweet on the eyes, razor-sharp on your brain. 4 prototypes in the lab, but only one survives the community greenlight."
-                </div>
-                <div class="poster-meta">
-                  <span class="meta-tag">#Handcrafted</span>
-                  <span class="meta-tag">#RobloxVeteran</span>
-                  <span class="meta-tag">#IndieDev</span>
-                </div>
-              </div>
-              <div class="poster-foot">
-                <span>BACKEND: CLOUDFLARE WORKER &bull; IP CHECK ACTIVE</span>
-              </div>
+        <div class="hero-card">
+          <div class="card-inner">
+            <img src="assets/logo.png" alt="GlzzLexiBear" class="card-logo">
+            <p class="tagline">"Sharp wit. Sweet glaze."</p>
+            <div class="meta-list">
+              <span>Roblox Dev</span>
+              <span>Solo Creator</span>
+              <span>CpE Student</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 1: THE 4 PROTOTYPES -->
-    <section class="section prototypes-section" id="prototypes">
-      <div class="container">
-        <div class="section-badge">LAB PROTOTYPES</div>
-        <h2 class="section-h2">4 IDEAS IN THE CHAMBER. <span class="highlight-text">ONLY 1 COMES ALIVE.</span></h2>
-        
-        <div class="reality-check-callout">
-          <div class="callout-icon">💡</div>
-          <div class="callout-content">
-            <strong>Real Talk (Student Dev Reality):</strong>
-            Hindi ko kaya gawin lahat nang sabay-sabay. I'm balancing engineering thesis, circuitry, and late-night game dev. <strong>Only ONE game will be developed and released for PC first</strong>. Ang boto ninyo ang pipili kung ano ang gagawin ko.
-          </div>
+    <section class="section" id="games">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="tag">Desktop Prototypes</span>
+          <h2>The 4 Game Ideas</h2>
+          <p>All of these are 3D first-person indie games. Only <strong>one</strong> will be made first based on your votes.</p>
         </div>
 
-        <!-- 4 Prototypes Grid -->
-        <div class="proto-grid">
-
-          <!-- 1. 9-5 GET ME OUT -->
-          <article class="proto-card" onclick="openPrototypeModal('nine_to_five')">
-            <div class="proto-thumb">
-              <img src="assets/prototype_9_5.jpg" alt="9-5 Get Me Out First-Person Prototype" loading="lazy">
-              <div class="proto-cam-hud">
-                <span class="hud-pill"><span class="red-dot"></span> REC &bull; 00:09:05</span>
-                <span class="hud-stat">SANITY: 48%</span>
-              </div>
-              <div class="proto-inspect-hover">Inspect Dossier &rarr;</div>
+        <div class="games-grid">
+          <!-- 1. 9-5 Get Me Out -->
+          <article class="game-card" onclick="openModal('nine_to_five')">
+            <div class="card-preview">
+              <img src="assets/prototype_9_5.jpg" alt="9-5 Get Me Out" loading="lazy">
+              <span class="badge badge-coral">3D First Person</span>
             </div>
-            <div class="proto-text">
-              <div class="proto-labels">
-                <span class="proto-badge badge-coral">Workplace Stealth / Escape</span>
-                <span class="proto-pov-tag">3D First Person</span>
-              </div>
-              <h3 class="proto-title">9-5 Get Me Out</h3>
-              <p class="proto-desc">
-                You're the most productive employee in the company. Your boss knows you want to quit, so he secretly sabotages your resignation letters, locks the emergency doors, and uses CCTV to trap you forever.
-              </p>
-              <div class="proto-details-bar">
-                <span><strong>Core:</strong> Stealth & File Hack</span>
-                <span><strong>Enemy:</strong> Micro-managing Boss</span>
-              </div>
-              <div class="proto-action-row">
-                <span class="vote-badge" id="votes-card-nine_to_five">🔥 Fetching votes...</span>
-                <span class="proto-btn-text">Read Dossier &rarr;</span>
+            <div class="card-body">
+              <h3>9-5 Get Me Out</h3>
+              <p>You work a 9-5 job and you're good at it, but your boss is secretly undermining you and sabotaging your exit so you can never leave the company.</p>
+              <div class="card-foot">
+                <span class="vote-tag" id="card-nine_to_five">...</span>
+                <span class="link-text">Details &rarr;</span>
               </div>
             </div>
           </article>
 
-          <!-- 2. STUDY PICKY -->
-          <article class="proto-card" onclick="openPrototypeModal('study_picky')">
-            <div class="proto-thumb">
-              <img src="assets/prototype_study.jpg" alt="Study Picky First-Person Prototype" loading="lazy">
-              <div class="proto-cam-hud">
-                <span class="hud-pill"><span class="red-dot"></span> REC &bull; EXAM: 2H</span>
-                <span class="hud-stat">FOCUS: CRITICAL</span>
-              </div>
-              <div class="proto-inspect-hover">Inspect Dossier &rarr;</div>
+          <!-- 2. Study Picky -->
+          <article class="game-card" onclick="openModal('study_picky')">
+            <div class="card-preview">
+              <img src="assets/prototype_study.jpg" alt="Study Picky" loading="lazy">
+              <span class="badge badge-honey">3D First Person</span>
             </div>
-            <div class="proto-text">
-              <div class="proto-labels">
-                <span class="proto-badge badge-honey">ADHD Survival / Stress Sim</span>
-                <span class="proto-pov-tag">3D First Person</span>
-              </div>
-              <h3 class="proto-title">Study Picky</h3>
-              <p class="proto-desc">
-                Final exam in 2 hours. Your character has extreme sensory distraction and sudden memory lapses. Swat flying daydreams and paper airplanes with your ruler, balance coffee caffeine vs. heart palpitations, and study to pass.
-              </p>
-              <div class="proto-details-bar">
-                <span><strong>Core:</strong> Focus Defense</span>
-                <span><strong>Enemy:</strong> Intrusive Daydreams</span>
-              </div>
-              <div class="proto-action-row">
-                <span class="vote-badge" id="votes-card-study_picky">🔥 Fetching votes...</span>
-                <span class="proto-btn-text">Read Dossier &rarr;</span>
+            <div class="card-body">
+              <h3>Study Picky</h3>
+              <p>You study at your desk, but your character deals with heavy distractions, memory forgetfulness, and sensory overload. Your goal is to help them get good grades.</p>
+              <div class="card-foot">
+                <span class="vote-tag" id="card-study_picky">...</span>
+                <span class="link-text">Details &rarr;</span>
               </div>
             </div>
           </article>
 
-          <!-- 3. MARK MARK WHAT THE -->
-          <article class="proto-card" onclick="openPrototypeModal('mark_mark')">
-            <div class="proto-thumb">
-              <img src="assets/prototype_mark.jpg" alt="Mark Mark What The First-Person Prototype" loading="lazy">
-              <div class="proto-cam-hud">
-                <span class="hud-pill"><span class="red-dot"></span> REC &bull; MIND: SPLIT</span>
-                <span class="hud-stat">ALTER-EGO: ACTIVE</span>
-              </div>
-              <div class="proto-inspect-hover">Inspect Dossier &rarr;</div>
+          <!-- 3. Mark Mark What The -->
+          <article class="game-card" onclick="openModal('mark_mark')">
+            <div class="card-preview">
+              <img src="assets/prototype_mark.jpg" alt="Mark Mark What The" loading="lazy">
+              <span class="badge badge-purple">3D First Person</span>
             </div>
-            <div class="proto-text">
-              <div class="proto-labels">
-                <span class="proto-badge badge-purple">Dual-Personality Chaos</span>
-                <span class="proto-pov-tag">3D First Person</span>
-              </div>
-              <h3 class="proto-title">Mark Mark What The</h3>
-              <p class="proto-desc">
-                You play as Mark solving high-stakes escape puzzles. At random intervals, your unhinged alter-ego seizes control of your right hand — reversing your mouse controls, throwing your keycard, or punching locked vault doors with raw power.
-              </p>
-              <div class="proto-details-bar">
-                <span><strong>Core:</strong> Hand Hijack Puzzles</span>
-                <span><strong>Enemy:</strong> Your Other Self</span>
-              </div>
-              <div class="proto-action-row">
-                <span class="vote-badge" id="votes-card-mark_mark">🔥 Fetching votes...</span>
-                <span class="proto-btn-text">Read Dossier &rarr;</span>
+            <div class="card-body">
+              <h3>Mark Mark What The</h3>
+              <p>You play as Mark, but you have a dual personality that can take over at any time — either disrupting your mission or unexpectedly helping you.</p>
+              <div class="card-foot">
+                <span class="vote-tag" id="card-mark_mark">...</span>
+                <span class="link-text">Details &rarr;</span>
               </div>
             </div>
           </article>
 
-          <!-- 4. GUYS WATCH ME NOW -->
-          <article class="proto-card" onclick="openPrototypeModal('guys_watch')">
-            <div class="proto-thumb">
-              <img src="assets/prototype_streamer.jpg" alt="Guys Watch Me Now First-Person Prototype" loading="lazy">
-              <div class="proto-cam-hud">
-                <span class="hud-pill"><span class="red-dot"></span> LIVE &bull; 3,460 VIEWERS</span>
-                <span class="hud-stat">DONO: $25.00</span>
-              </div>
-              <div class="proto-inspect-hover">Inspect Dossier &rarr;</div>
+          <!-- 4. Guys Watch Me Now -->
+          <article class="game-card" onclick="openModal('guys_watch')">
+            <div class="card-preview">
+              <img src="assets/prototype_streamer.jpg" alt="Guys Watch Me Now" loading="lazy">
+              <span class="badge badge-cyan">3D First Person</span>
             </div>
-            <div class="proto-text">
-              <div class="proto-labels">
-                <span class="proto-badge badge-cyan">AI Streamer Horror-Comedy</span>
-                <span class="proto-pov-tag">3D First Person</span>
-              </div>
-              <h3 class="proto-title">Guys Watch Me Now</h3>
-              <p class="proto-desc">
-                Play as Clyde, a desperate desktop live streamer. An interactive simulated AI chat judges your gameplay in real-time, spamming toxic roasts, sending TTS donations, and demanding unhinged real-life apartment stunts to keep view counts up.
-              </p>
-              <div class="proto-details-bar">
-                <span><strong>Core:</strong> Streamer Simulation</span>
-                <span><strong>Threat:</strong> Chat Swatting & Dares</span>
-              </div>
-              <div class="proto-action-row">
-                <span class="vote-badge" id="votes-card-guys_watch">🔥 Fetching votes...</span>
-                <span class="proto-btn-text">Read Dossier &rarr;</span>
+            <div class="card-body">
+              <h3>Guys Watch Me Now</h3>
+              <p>You play as Clyde, a live streamer. Your goal is to make content while an interactive AI audience judges your every move, cheering you on or roasting you.</p>
+              <div class="card-foot">
+                <span class="vote-tag" id="card-guys_watch">...</span>
+                <span class="link-text">Details &rarr;</span>
               </div>
             </div>
           </article>
-
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: LIVE VOTING BOOTH -->
-    <section class="section voting-section" id="voting">
-      <div class="container">
-        <div class="voting-box">
-          <div class="voting-header">
-            <div class="section-badge">LIVE CLOUDFLARE WORKER &bull; IP-PROTECTED</div>
-            <h2 class="section-h2">GREENLIGHT VOTE: <span class="highlight-text">WHICH 1 SHOULD I BUILD?</span></h2>
-            <p class="voting-sub">
-              Connected directly to our Cloudflare edge backend. <strong>1 vote per IP address</strong> to avoid bots and duplicate voting. Ang panalo dito ang magiging focus ko for release.
-            </p>
+    <section class="section" id="vote">
+      <div class="wrap">
+        <div class="vote-box">
+          <div class="section-head">
+            <span class="tag">Community Vote</span>
+            <h2>Which game should I make first?</h2>
+            <p>1 vote per IP address (checked via Cloudflare Worker) para walang spam. Kung ano manalo dito, yun ang uunahin ko gawin.</p>
           </div>
 
-          <div class="voting-list">
-            <!-- 9-5 -->
-            <div class="vote-row" data-game="nine_to_five">
-              <div class="vote-row-info">
-                <h4>9-5 Get Me Out</h4>
-                <p>Office stealth, cubicle paranoia, and boss sabotage escape</p>
+          <div class="vote-list">
+            <div class="vote-row" data-id="nine_to_five">
+              <div class="vote-name">
+                <strong>9-5 Get Me Out</strong>
+                <small>Office stealth & boss sabotage</small>
               </div>
-              <div class="vote-row-bar">
-                <div class="v-bar bar-coral" id="bar-nine_to_five" style="width: 25%;"></div>
+              <div class="progress-wrap">
+                <div class="bar bar-coral" id="bar-nine_to_five" style="width: 25%;"></div>
               </div>
-              <div class="vote-row-ctrl">
-                <span class="vote-num" id="count-nine_to_five">...</span>
-                <button class="btn-vote" onclick="castVote('nine_to_five')">Vote 9-5</button>
-              </div>
-            </div>
-
-            <!-- Study Picky -->
-            <div class="vote-row" data-game="study_picky">
-              <div class="vote-row-info">
-                <h4>Study Picky</h4>
-                <p>ADHD sensory defense, paper plane swatting, and memory survival</p>
-              </div>
-              <div class="vote-row-bar">
-                <div class="v-bar bar-honey" id="bar-study_picky" style="width: 25%;"></div>
-              </div>
-              <div class="vote-row-ctrl">
-                <span class="vote-num" id="count-study_picky">...</span>
-                <button class="btn-vote" onclick="castVote('study_picky')">Vote Study</button>
+              <div class="vote-actions">
+                <span class="vote-stat" id="stat-nine_to_five">...</span>
+                <button class="vote-btn" onclick="submitVote('nine_to_five')">Vote</button>
               </div>
             </div>
 
-            <!-- Mark Mark -->
-            <div class="vote-row" data-game="mark_mark">
-              <div class="vote-row-info">
-                <h4>Mark Mark What The</h4>
-                <p>Chaotic dual-personality, hand-hijacking action puzzle</p>
+            <div class="vote-row" data-id="study_picky">
+              <div class="vote-name">
+                <strong>Study Picky</strong>
+                <small>Study simulator & distraction defense</small>
               </div>
-              <div class="vote-row-bar">
-                <div class="v-bar bar-purple" id="bar-mark_mark" style="width: 25%;"></div>
+              <div class="progress-wrap">
+                <div class="bar bar-honey" id="bar-study_picky" style="width: 25%;"></div>
               </div>
-              <div class="vote-row-ctrl">
-                <span class="vote-num" id="count-mark_mark">...</span>
-                <button class="btn-vote" onclick="castVote('mark_mark')">Vote Mark</button>
+              <div class="vote-actions">
+                <span class="vote-stat" id="stat-study_picky">...</span>
+                <button class="vote-btn" onclick="submitVote('study_picky')">Vote</button>
               </div>
             </div>
 
-            <!-- Guys Watch Me -->
-            <div class="vote-row" data-game="guys_watch">
-              <div class="vote-row-info">
-                <h4>Guys Watch Me Now</h4>
-                <p>AI livestreamer simulator with toxic chat, dares, and apartment horror</p>
+            <div class="vote-row" data-id="mark_mark">
+              <div class="vote-name">
+                <strong>Mark Mark What The</strong>
+                <small>Dual personality chaos puzzle</small>
               </div>
-              <div class="vote-row-bar">
-                <div class="v-bar bar-cyan" id="bar-guys_watch" style="width: 25%;"></div>
+              <div class="progress-wrap">
+                <div class="bar bar-purple" id="bar-mark_mark" style="width: 25%;"></div>
               </div>
-              <div class="vote-row-ctrl">
-                <span class="vote-num" id="count-guys_watch">...</span>
-                <button class="btn-vote" onclick="castVote('guys_watch')">Vote Streamer</button>
+              <div class="vote-actions">
+                <span class="vote-stat" id="stat-mark_mark">...</span>
+                <button class="vote-btn" onclick="submitVote('mark_mark')">Vote</button>
+              </div>
+            </div>
+
+            <div class="vote-row" data-id="guys_watch">
+              <div class="vote-name">
+                <strong>Guys Watch Me Now</strong>
+                <small>AI streamer simulation & chat dares</small>
+              </div>
+              <div class="progress-wrap">
+                <div class="bar bar-cyan" id="bar-guys_watch" style="width: 25%;"></div>
+              </div>
+              <div class="vote-actions">
+                <span class="vote-stat" id="stat-guys_watch">...</span>
+                <button class="vote-btn" onclick="submitVote('guys_watch')">Vote</button>
               </div>
             </div>
           </div>
 
-          <div class="voting-status-foot">
-            <span class="pulse-green"></span>
-            <span>API Status: Live on <code>glzz-voting-api.glzzjhn.workers.dev</code></span>
-          </div>
+          <p class="vote-footnote">Votes are recorded live on my Cloudflare Worker.</p>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 3: DIRECT WEBSITE DISTRIBUTION & PAYMENT MODEL -->
-    <section class="section direct-section" id="direct-release">
-      <div class="container">
-        <div class="section-badge">DISTRIBUTION BLUEPRINT</div>
-        <h2 class="section-h2">WHY NO STEAM? <span class="highlight-text">BUY DIRECT ON THIS SITE.</span></h2>
-        <p class="section-intro">
-          Walang \$100 Steam Direct submission fee, walang 30% platform tax. The game will be sold and delivered <strong>right here on this website</strong> via direct digital download and custom keys.
-        </p>
-
-        <div class="direct-grid">
-          <div class="direct-card">
-            <div class="card-icon">⚡</div>
-            <h3>Direct DRM-Free Exe</h3>
-            <p>One-click clean installer for Windows Desktop. No launcher bloat, no forced updates, no background launchers hogging your RAM.</p>
-          </div>
-
-          <div class="direct-card">
-            <div class="card-icon">💳</div>
-            <h3>Handled Payments Directly</h3>
-            <p>Pay easily via local & international payment rails (Card, PayPal, GCash / Maya checkout) — 100% of the funds go straight into game development.</p>
-          </div>
-
-          <div class="direct-card">
-            <div class="card-icon">📦</div>
-            <h3>Community Early Access</h3>
-            <p>Direct build updates, discord access, and instant patch downloads without waiting for store approval queues.</p>
-          </div>
+    <section class="section" id="about">
+      <div class="wrap about-grid">
+        <div>
+          <span class="tag">About Me</span>
+          <h2>Roblox to Desktop</h2>
+          <p>
+            I'm a 3rd year Computer Engineering student making games in my spare time.
+          </p>
+          <p>
+            Most of the games I make right now are on Roblox. Making games on Roblox taught me a lot about player engagement and making mechanics responsive. Now I want to challenge myself by building a complete standalone 3D first-person desktop game.
+          </p>
+          <p>
+            Because Steam requires \$100 per game just to submit, I'm sticking to releasing it right here on this website. Once the winning game is ready, you'll be able to buy and download it directly from here (supporting local payment methods like GCash / Maya as well as Card/PayPal).
+          </p>
         </div>
 
-        <!-- Interactive Direct Pre-Order Simulation Banner -->
-        <div class="checkout-preview-box">
-          <div class="checkout-left">
-            <span class="preorder-tag">DIRECT STORE PREVIEW</span>
-            <h3>Support GlzzLexiBear's First Desktop Release</h3>
-            <p>When the winning prototype finishes alpha development, you can purchase the standalone PC build directly here.</p>
+        <div class="faq-box">
+          <h3>Quick Questions</h3>
+          <div class="faq-item">
+            <strong>Bakit isa lang ang gagawin?</strong>
+            <p>Solo developer lang ako at may classes pa ko sa engineering. Mas okay mag-focus sa isang magandang game kaysa magsimula ng apat na di matatapos.</p>
           </div>
-          <div class="checkout-right">
-            <button class="btn btn-primary" onclick="openDirectPaymentModal()">
-              <span>Simulate Checkout / Pre-Register</span>
-              <span class="btn-arrow">&rarr;</span>
-            </button>
+          <div class="faq-item">
+            <strong>Will it be free?</strong>
+            <p>No, it will be a paid desktop game. I will handle the payment system directly on this website so you can download the installer directly.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 4: THE FOUNDER STORY (ROBLOX TO DESKTOP) -->
-    <section class="section story-section" id="story">
-      <div class="container">
-        <div class="story-layout">
-          <div class="story-left">
-            <div class="section-badge">ABOUT THE FOUNDER</div>
-            <h2 class="section-h2">A 3RD-YEAR CpE STUDENT <span class="highlight-text">BUILDING GAMES</span></h2>
-            <p class="lead-text">
-              "Bakit GlzzLexiBear? Kasi ayoko ng generic, boring games. Gusto ko may sharp wit sa gameplay at sweet glaze sa personality."
-            </p>
-            <p>
-              I founded GlzzLexiBear while studying <strong>Computer Engineering (3rd Year)</strong>. In between logic circuits, microprocessor programming, and university projects, game development has been my creative obsession.
-            </p>
-            <p>
-              I built multiple games on <strong>Roblox</strong>, which taught me the most brutal, honest rule in game design: <em>if your game isn't fun within the first 15 seconds, players leave</em>. Now, I'm bringing that razor-sharp gameplay pacing into a standalone 3D first-person desktop game.
-            </p>
-
-            <div class="founder-badge-row">
-              <span class="f-badge">🎓 3rd Year Computer Engineering</span>
-              <span class="f-badge">🟥 Roblox Game Creator</span>
-              <span class="f-badge">💻 Solo Desktop Dev</span>
-            </div>
-          </div>
-
-          <div class="story-right">
-            <div class="terminal-card">
-              <div class="terminal-bar">
-                <span class="t-btn r"></span><span class="t-btn y"></span><span class="t-btn g"></span>
-                <span class="t-title">glzz_devlog.txt</span>
-              </div>
-              <div class="terminal-content">
-                <p class="t-line"><span class="t-green">cpe@glzzlexi</span>:<span class="t-blue">~/desktop-leap</span>$ cat studio_plan.md</p>
-                <p class="t-comment"># The GlzzLexiBear Desktop Manifest</p>
-                <p class="t-text">1. [x] Build viral Roblox mechanics</p>
-                <p class="t-text">2. [x] Create 4 original 3D First-Person prototypes</p>
-                <p class="t-text">3. [x] Deploy live Cloudflare Worker API for voting</p>
-                <p class="t-text">4. [ ] Community selects the 1 winning game</p>
-                <p class="t-text">5. [ ] Code full standalone PC build</p>
-                <p class="t-text">6. [ ] Launch direct payment & download on this site</p>
-                <p class="t-line"><span class="t-green">cpe@glzzlexi</span>:<span class="t-blue">~/desktop-leap</span>$ <span class="cursor-blink">_</span></p>
-              </div>
-            </div>
+    <section class="section" id="contact">
+      <div class="wrap contact-grid">
+        <div>
+          <span class="tag">Connect</span>
+          <h2>Feedback or Ideas?</h2>
+          <p>If you have gameplay ideas for any of the prototypes or want to help test early builds, send me a message.</p>
+          <div class="links-row">
+            <a href="https://www.roblox.com" target="_blank" rel="noopener">Roblox</a>
+            <a href="https://discord.com" target="_blank" rel="noopener">Discord</a>
+            <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- SECTION 5: PLAYTEST / CONTACT -->
-    <section class="section devlog-section" id="devlog">
-      <div class="container">
-        <div class="contact-box">
-          <div class="contact-grid">
-            <div class="contact-left">
-              <div class="section-badge">DIRECT LINE</div>
-              <h2 class="section-h2">WANT TO TEST BUILDS OR TALK DEV?</h2>
-              <p>
-                Whether you're a fellow student dev, a gamer who wants early alpha test keys, or someone with crazy ideas for the winning prototype — reach out directly.
-              </p>
-
-              <div class="social-pills">
-                <a href="https://www.roblox.com" target="_blank" rel="noopener" class="social-btn">
-                  <span>🟥 Roblox Studio</span>
-                </a>
-                <a href="https://discord.com" target="_blank" rel="noopener" class="social-btn">
-                  <span>💬 Discord</span>
-                </a>
-                <a href="https://github.com" target="_blank" rel="noopener" class="social-btn">
-                  <span>🐙 GitHub</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="contact-right">
-              <form class="simple-form" onsubmit="handleContactSubmit(event)">
-                <h3>Sign Up for Direct Alpha Playtests</h3>
-                <div class="form-group">
-                  <label for="c-name">Gamer / Discord Handle</label>
-                  <input type="text" id="c-name" placeholder="e.g. NeoLexi_26" required>
-                </div>
-                <div class="form-group">
-                  <label for="c-email">Email (for direct download links)</label>
-                  <input type="email" id="c-email" placeholder="yourname@gmail.com" required>
-                </div>
-                <div class="form-group">
-                  <label for="c-msg">Suggestions / Feedback for the Founder</label>
-                  <textarea id="c-msg" rows="3" placeholder="Tell me what mechanics you want to see..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">
-                  <span>Send to Founder</span>
-                </button>
-              </form>
-            </div>
+        <form class="contact-form" onsubmit="handleContact(event)">
+          <div class="field">
+            <label for="name">Name / Handle</label>
+            <input type="text" id="name" placeholder="Your name or handle" required>
           </div>
-        </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="your@email.com" required>
+          </div>
+          <div class="field">
+            <label for="msg">Message</label>
+            <textarea id="msg" rows="3" placeholder="Suggestions or game feedback..."></textarea>
+          </div>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
       </div>
     </section>
   </main>
 
-  <!-- PROTOTYPE DOSSIER MODAL -->
-  <div id="proto-modal" class="modal-backdrop" aria-hidden="true" onclick="closeModalOnBackdrop(event)">
-    <div class="modal-dialog">
-      <button class="modal-x" onclick="closePrototypeModal()" aria-label="Close modal">&times;</button>
-      <div id="modal-body-inject">
-        <!-- Injected via JavaScript -->
-      </div>
+  <!-- Prototype Modal -->
+  <div id="modal" class="modal-bg" onclick="handleBackdrop(event)">
+    <div class="modal-card">
+      <button class="close-btn" onclick="closeModal()" aria-label="Close">&times;</button>
+      <div id="modal-content"></div>
     </div>
   </div>
 
-  <!-- DIRECT PAYMENT SIMULATION MODAL -->
-  <div id="payment-modal" class="modal-backdrop" aria-hidden="true" onclick="closePaymentModalOnBackdrop(event)">
-    <div class="modal-dialog modal-dialog-sm">
-      <button class="modal-x" onclick="closePaymentModal()" aria-label="Close modal">&times;</button>
-      <div class="pay-modal-content">
-        <div class="section-badge">DIRECT PURCHASE ARCHITECTURE</div>
-        <h3>Direct Website Checkout System</h3>
-        <p>This is how payments will be processed directly on this website once the winning game goes live:</p>
-        
-        <div class="payment-channels">
-          <div class="pay-chan">
-            <span class="chan-icon">📱</span>
-            <div>
-              <strong>GCash / Maya (PH Rails)</strong>
-              <small>Zero friction local checkout</small>
-            </div>
-          </div>
-          <div class="pay-chan">
-            <span class="chan-icon">💳</span>
-            <div>
-              <strong>Card (Stripe / Debit)</strong>
-              <small>Worldwide VISA & MasterCard</small>
-            </div>
-          </div>
-          <div class="pay-chan">
-            <span class="chan-icon">🌐</span>
-            <div>
-              <strong>PayPal / itch.io Widget</strong>
-              <small>Instant DRM-free exe delivery</small>
-            </div>
-          </div>
-        </div>
+  <div id="toast-wrap" class="toast-wrap"></div>
 
-        <button class="btn btn-primary btn-block" onclick="showToast('Pre-order interest logged! You will be notified via email upon game release.'); closePaymentModal();">
-          <span>Got It! (Simulate Pre-Order Notification)</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toast-container" class="toast-container"></div>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-left">
-        <img src="assets/logo.png" alt="GlzzLexiBear" class="footer-logo">
-        <p class="footer-bio">
-          Sharp Wit. Sweet Glaze.<br>
-          Handcrafted indie gaming by a 3rd-year Computer Engineering student.<br>
-          Direct website distribution &bull; No middleman cuts.
-        </p>
-        <span class="copy-text">&copy; <span id="year">2026</span> GlzzLexiBear Studios. Handcrafted code.</span>
-      </div>
-
-      <div class="footer-links">
-        <div class="f-col">
-          <h4>Navigation</h4>
-          <a href="#prototypes">4 Prototypes</a>
-          <a href="#voting">Greenlight Vote</a>
-          <a href="#story">Roblox Story</a>
-          <a href="#direct-release">Direct Store</a>
-        </div>
-        <div class="f-col">
-          <h4>Cloudflare API</h4>
-          <a href="https://glzz-voting-api.glzzjhn.workers.dev/api/votes" target="_blank" rel="noopener">Live API JSON</a>
-          <a href="#voting">Vote Tallies</a>
-        </div>
-        <div class="f-col">
-          <h4>Host</h4>
-          <p class="f-host">
-            GitHub Pages + Custom Domain.<br>
-            Cloudflare Worker Edge API.
-          </p>
-        </div>
-      </div>
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p>&copy; <span id="year">2026</span> GlzzLexiBear &bull; Solo indie dev</p>
+      <p class="subtle">Hosted on GitHub Pages &bull; Voting powered by Cloudflare Worker</p>
     </div>
   </footer>
 
