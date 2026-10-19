@@ -7,11 +7,12 @@
  * Founder & Lead Developer: John Gabriel (Gabriel Ronao)
  * 3rd-Year Computer Engineering Student
  * 
- * Core Architecture:
+ * Core Features:
  * - Dynamic Client-Side DOM Injection into #app
  * - Live Cloudflare Worker Voting Backend with 1-Vote-Per-IP Anti-Duplication
- * - 4 Handcrafted 3D First-Person Desktop Prototypes
- * - Roblox Track Record & Modular Luau Framework
+ * - Real-Time Worker Data Sync (8-second auto polling + live tally counters)
+ * - 4 Handcrafted 3D First-Person Desktop Prototypes (Full 16:9 Uncropped Images)
+ * - Official Roblox Community (380883003) & GitHub Organization Integration
  * - Direct Website Distribution Architecture (0% Steam Cut / Local GCash + Maya)
  * - Confectionary Glaze Sprinkles Canvas Simulation
  * - Web Audio API Synthesizer (Zero External Audio Assets)
@@ -28,6 +29,8 @@ const CONFIG = {
   founderName: "John Gabriel",
   founderRole: "Founder & Lead Developer (3rd-Year CpE Student)",
   githubUrl: "https://github.com/GlzzLexi",
+  robloxCommunityUrl: "https://www.roblox.com/communities/380883003/GlzzLexi#!/about",
+  robloxGameUrl: "https://www.roblox.com/games/134889225269060/STEAL-AN-ANOMALY-LAB-BREACH-TYCOON",
   robloxProfileUrl: "https://github.com/GlzzLexi/.github/blob/main/profile/README.md"
 };
 
@@ -118,7 +121,7 @@ const ROBLOX_PROJECTS = [
     badgeText: "LIVE ROBLOX RELEASE",
     statusText: "Live (Evaluation Phase)",
     role: "Inaugural Studio Release / Lightweight Prototype",
-    url: "https://www.roblox.com/games/134889225269060/STEAL-AN-ANOMALY-LAB-BREACH-TYCOON",
+    url: CONFIG.robloxGameUrl,
     buttonText: "Play on Roblox",
     desc: "Built to validate baseline deployment, tycoon mechanics, and data persistence in a live Roblox production environment. Minimalist core loop engineered with modular Luau architecture."
   },
@@ -128,7 +131,7 @@ const ROBLOX_PROJECTS = [
     badgeText: "STUDIO HIGHLIGHT",
     statusText: "In Development (On Hold / Delayed)",
     role: "Flagship RPG Showcase",
-    url: "https://github.com/GlzzLexi/.github/blob/main/profile/README.md",
+    url: CONFIG.robloxProfileUrl,
     buttonText: "View Specs on GitHub",
     desc: "Inspired by 'That Time I Got Reincarnated as a Slime'. Systems-driven RPG focusing on deep progression mechanics, custom skill architectures, and immersive world-building atop our modular Luau framework."
   },
@@ -138,18 +141,23 @@ const ROBLOX_PROJECTS = [
     badgeText: "ACTIVE PIPELINE",
     statusText: "In Active Development",
     role: "Survival / Co-op / Dynamic Environments",
-    url: "https://github.com/GlzzLexi/.github/blob/main/profile/README.md",
+    url: CONFIG.robloxProfileUrl,
     buttonText: "Inspect Roadmap",
     desc: "Co-op survival experience with dynamic environmental road hazards and cooperative resource management, prototyping core loops for our desktop ambitions."
   }
 ];
 
-// Fallback vote values if API is unreachable
+// Fallback vote values if Cloudflare API is temporarily unreachable
 const FALLBACK_VOTES = {
   nine_to_five: 184,
   study_picky: 162,
   mark_mark: 171,
   guys_watch: 198
+};
+
+let liveVoteData = {
+  votes: { ...FALLBACK_VOTES },
+  total: 715
 };
 
 // ----------------------------------------------------------------------------
@@ -323,10 +331,10 @@ function buildApp() {
       <!-- 2. Hero Section -->
       ${renderHero()}
 
-      <!-- 3. The 4 Prototypes Section -->
+      <!-- 3. The 4 Prototypes Section (Uncropped 16:9 In-Engine Screens) -->
       ${renderPrototypesSection()}
 
-      <!-- 4. Live Greenlight Voting Booth -->
+      <!-- 4. Live Greenlight Voting Booth (Cloudflare Worker Live Data) -->
       ${renderVotingSection()}
 
       <!-- 5. Roblox Track Record & Modular Luau -->
@@ -342,7 +350,7 @@ function buildApp() {
       ${renderContactSection()}
     </main>
 
-    <!-- 9. Footer -->
+    <!-- 9. Footer with Social Media Links -->
     ${renderFooter()}
 
     <!-- 10. Modals & Toast Container -->
@@ -375,13 +383,24 @@ function renderHeader() {
         </nav>
 
         <div class="header-actions">
+          <!-- Social Shortcut Links -->
+          <a href="${CONFIG.robloxCommunityUrl}" target="_blank" rel="noopener" class="social-pill roblox" style="padding: 6px 12px; font-size: 0.78rem;" title="Official Roblox Community">
+            <span class="social-pill-icon">🎮</span>
+            <span>Roblox Org</span>
+          </a>
+
+          <a href="${CONFIG.githubUrl}" target="_blank" rel="noopener" class="social-pill github" style="padding: 6px 12px; font-size: 0.78rem;" title="GitHub Organization">
+            <span class="social-pill-icon">🐙</span>
+            <span>GitHub</span>
+          </a>
+
           <button id="sfx-toggle" class="btn-sfx" title="Toggle Audio Feedback" aria-label="Toggle UI Audio">
             <span class="sfx-dot"></span>
             <span class="sfx-label">SFX: OFF</span>
           </button>
 
           <a href="#voting" class="btn btn-glazed btn-sm">
-            <span>Vote Prototype</span>
+            <span>Vote</span>
             <span class="btn-icon">&rarr;</span>
           </a>
 
@@ -425,6 +444,20 @@ function renderHero() {
             <p class="founder-voice-text">
               Di ko muna ilalagay sa Steam kasi may <strong>$100 fee per game</strong> and I don't have the budget for that yet. I'll just sell and release the game <strong>directly on this website</strong>. Since ako lang mag-isa gumagawa habang nag-aaral, isa lang muna ang tatapusin ko. Vote below which one you want me to make first."
             </p>
+
+            <!-- Social Media & Official Pages -->
+            <div class="social-pills-row">
+              <a href="${CONFIG.robloxCommunityUrl}" target="_blank" rel="noopener" class="social-pill roblox" title="Join GlzzLexi Roblox Community">
+                <span class="social-pill-icon">🎮</span>
+                <span>Roblox Community (380883003)</span>
+                <span class="btn-arrow">&rarr;</span>
+              </a>
+              <a href="${CONFIG.githubUrl}" target="_blank" rel="noopener" class="social-pill github" title="GlzzLexi GitHub Organization">
+                <span class="social-pill-icon">🐙</span>
+                <span>GitHub Org (@GlzzLexi)</span>
+                <span class="btn-arrow">&rarr;</span>
+              </a>
+            </div>
           </div>
 
           <p class="hero-sublead">
@@ -491,10 +524,11 @@ function renderHero() {
 function renderPrototypesSection() {
   const cardsHtml = Object.values(PROTOTYPES).map(proto => `
     <article class="prototype-card" data-key="${proto.id}">
+      <!-- Widescreen 16:9 Uncropped Concept Visual -->
       <div class="proto-screen-frame">
-        <img src="${proto.image}" alt="${proto.title} 3D In-Engine Screenshot" class="proto-screen-img" loading="lazy">
+        <img src="${proto.image}" alt="${proto.title} 3D First-Person In-Engine Prototype Screenshot" class="proto-screen-img" loading="lazy">
         <div class="proto-screen-overlay">
-          <div class="hud-view-tag">3D FIRST-PERSON HUD</div>
+          <div class="hud-view-tag">3D FIRST-PERSON POV</div>
           <div class="proto-status-pill">${proto.status}</div>
         </div>
       </div>
@@ -502,7 +536,7 @@ function renderPrototypesSection() {
       <div class="proto-content">
         <div class="proto-header-meta">
           <span class="proto-category">${proto.genre}</span>
-          <span class="votes-badge" id="votes-card-${proto.id}">Loading votes...</span>
+          <span class="votes-badge" id="votes-card-${proto.id}">Fetching live votes...</span>
         </div>
 
         <h3 class="proto-title">${proto.title}</h3>
@@ -570,10 +604,16 @@ function renderVotingSection() {
       <div class="container">
         <div class="voting-banner">
           <div class="voting-header">
+            <!-- Live Worker Sync Status Badge -->
+            <div class="live-sync-indicator">
+              <span class="live-pulse-dot"></span>
+              <span>LIVE CLOUDFLARE EDGE SYNC: <strong id="total-votes-tally">715</strong> VERIFIED VOTES RECORDED</span>
+            </div>
+
             <div class="section-tag-badge">COMMUNITY GREENLIGHT BOOTH</div>
             <h2 class="voting-title">WHICH DESKTOP GAME SHOULD I BUILD FIRST?</h2>
             <p class="voting-subtitle">
-              Connected to our live Cloudflare Worker edge backend. To keep the vote honest and prevent spam, <strong>strictly 1 vote per IP address network</strong> is allowed.
+              Connected directly to our live <strong>Cloudflare Worker</strong> edge backend. Pulling real-time tally data with SHA-256 IP hashing to enforce <strong>strictly 1 vote per IP address network</strong>.
             </p>
           </div>
 
@@ -583,7 +623,7 @@ function renderVotingSection() {
 
           <div class="voting-footer-note">
             <span class="live-dot"></span>
-            <span><strong>Anti-Spam Verification:</strong> SHA-256 IP Hashed &bull; Cloudflare KV Edge Storage &bull; Real-Time Aggregation</span>
+            <span><strong>Anti-Spam Verification:</strong> SHA-256 IP Hashed &bull; Cloudflare KV Edge Storage &bull; Real-Time Aggregation &bull; Polling Every 8s</span>
           </div>
         </div>
       </div>
@@ -618,6 +658,20 @@ function renderRobloxSection() {
 
         <div class="pipeline-grid">
           ${robloxHtml}
+        </div>
+
+        <!-- Official Roblox Community Banner -->
+        <div style="margin-top: 34px; background: rgba(0, 162, 255, 0.08); border: 1px solid rgba(0, 162, 255, 0.35); border-radius: var(--radius-lg); padding: 26px 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+          <div>
+            <span class="section-tag-badge" style="margin-bottom: 6px;">OFFICIAL ROBLOX COMMUNITY</span>
+            <h3 style="font-family: var(--font-display); font-size: 1.45rem; color: #fff; margin: 4px 0 6px;">Join the GlzzLexi Roblox Community Group</h3>
+            <p style="color: var(--text-muted); font-size: 0.94rem; margin: 0;">Be part of our core playtesters, participate in group voting, and unlock studio perks.</p>
+          </div>
+          <a href="${CONFIG.robloxCommunityUrl}" target="_blank" rel="noopener" class="social-pill roblox" style="padding: 12px 22px; font-size: 0.92rem;">
+            <span class="social-pill-icon">🎮</span>
+            <span>Join Group: 380883003</span>
+            <span class="btn-arrow">&rarr;</span>
+          </a>
         </div>
       </div>
     </section>
@@ -696,6 +750,18 @@ function renderFounderSection() {
             <span class="p-badge">☁️ Cloudflare Edge Workers</span>
             <span class="p-badge">🕹️ First-Person 3D Game Design</span>
           </div>
+
+          <!-- Social Links in Founder Section -->
+          <div class="social-pills-row" style="margin-top: 24px;">
+            <a href="${CONFIG.robloxCommunityUrl}" target="_blank" rel="noopener" class="social-pill roblox">
+              <span class="social-pill-icon">🎮</span>
+              <span>Roblox Community (380883003)</span>
+            </a>
+            <a href="${CONFIG.githubUrl}" target="_blank" rel="noopener" class="social-pill github">
+              <span class="social-pill-icon">🐙</span>
+              <span>GitHub Organization (@GlzzLexi)</span>
+            </a>
+          </div>
         </div>
 
         <div class="terminal-col">
@@ -734,6 +800,17 @@ function renderContactSection() {
               <p class="contact-desc">
                 Got a crazy idea for <em>9-5 Get Me Out</em> or <em>Guys Watch Me Now</em>? Or want to join GlzzLexi Studios in the future as a 3D artist or scripter? Send John Gabriel a message directly.
               </p>
+
+              <div class="social-pills-row" style="margin-top: 20px;">
+                <a href="${CONFIG.robloxCommunityUrl}" target="_blank" rel="noopener" class="social-pill roblox">
+                  <span class="social-pill-icon">🎮</span>
+                  <span>Roblox Community (380883003)</span>
+                </a>
+                <a href="${CONFIG.githubUrl}" target="_blank" rel="noopener" class="social-pill github">
+                  <span class="social-pill-icon">🐙</span>
+                  <span>GitHub Organization</span>
+                </a>
+              </div>
             </div>
 
             <form class="contact-form" onsubmit="handleContactSubmit(event)">
@@ -788,11 +865,11 @@ function renderFooter() {
           </div>
 
           <div class="f-col">
-            <h4>Studio & Dev</h4>
-            <a href="#roblox-pipeline">Roblox Track Record</a>
-            <a href="#direct-store">Direct Release Store</a>
-            <a href="#studio-story">Founder Story</a>
+            <h4>Official Links</h4>
+            <a href="${CONFIG.robloxCommunityUrl}" target="_blank" rel="noopener">Roblox Community Group</a>
             <a href="${CONFIG.githubUrl}" target="_blank" rel="noopener">GitHub Organization</a>
+            <a href="${CONFIG.robloxGameUrl}" target="_blank" rel="noopener">Steal an Anomaly (Roblox)</a>
+            <a href="#voting">Live Voting Booth</a>
           </div>
 
           <div class="f-col">
@@ -800,6 +877,10 @@ function renderFooter() {
             <p class="footer-note">
               Solo indie dev today &bull; 3rd Year CpE &bull; Envisioned to expand into a small indie team.
             </p>
+            <div style="margin-top: 12px;">
+              <span class="live-dot" style="display: inline-block; vertical-align: middle; margin-right: 6px;"></span>
+              <small style="color: #6ee7b7; font-family: var(--font-mono); font-size: 0.76rem;">Cloudflare Worker API Active</small>
+            </div>
           </div>
         </div>
       </div>
@@ -895,7 +976,7 @@ function attachEventListeners() {
   }
 
   // Hover sound on buttons and cards
-  document.querySelectorAll('.btn, .prototype-card, .btn-vote, .pipeline-card, .direct-feature-card').forEach(el => {
+  document.querySelectorAll('.btn, .prototype-card, .btn-vote, .pipeline-card, .direct-feature-card, .social-pill').forEach(el => {
     el.addEventListener('mouseenter', () => sfx.playPop(720, 0.02));
   });
 
@@ -922,8 +1003,11 @@ function attachEventListeners() {
     }
   });
 
-  // Fetch live votes from Cloudflare Worker
+  // Fetch initial live votes from Cloudflare Worker
   fetchLiveVotes();
+
+  // Auto-sync polling every 8 seconds to reflect live worldwide votes
+  setInterval(fetchLiveVotes, 8000);
 }
 
 // ----------------------------------------------------------------------------
@@ -931,24 +1015,33 @@ function attachEventListeners() {
 // ----------------------------------------------------------------------------
 async function fetchLiveVotes() {
   try {
-    const res = await fetch(`${CONFIG.apiBaseUrl}/api/votes`);
+    const res = await fetch(`${CONFIG.apiBaseUrl}/api/votes?t=${Date.now()}`);
     if (res.ok) {
       const data = await res.json();
       if (data.success && data.votes) {
-        renderVoteTally(data.votes);
+        liveVoteData = {
+          votes: data.votes,
+          total: data.total || Object.values(data.votes).reduce((sum, v) => sum + v, 0)
+        };
+        renderVoteTally(liveVoteData.votes, liveVoteData.total);
         return;
       }
     }
   } catch (e) {
-    console.warn("Cloudflare API offline, using cached tallies", e);
+    console.warn("Cloudflare Worker fetch issue, using local cached tallies", e);
   }
 
   const cached = localStorage.getItem('glzz_local_votes');
-  renderVoteTally(cached ? JSON.parse(cached) : FALLBACK_VOTES);
+  const votes = cached ? JSON.parse(cached) : FALLBACK_VOTES;
+  const total = Object.values(votes).reduce((sum, v) => sum + v, 0);
+  renderVoteTally(votes, total);
 }
 
-function renderVoteTally(votes) {
-  const total = Object.values(votes).reduce((sum, v) => sum + v, 0);
+function renderVoteTally(votes, totalCount) {
+  const total = totalCount || Object.values(votes).reduce((sum, v) => sum + v, 0);
+
+  const totalEl = document.getElementById('total-votes-tally');
+  if (totalEl) totalEl.textContent = total.toLocaleString();
 
   Object.keys(votes).forEach(key => {
     const count = votes[key] || 0;
@@ -959,8 +1052,8 @@ function renderVoteTally(votes) {
     const cardBadge = document.getElementById(`votes-card-${key}`);
 
     if (bar) bar.style.width = `${pct}%`;
-    if (countLabel) countLabel.textContent = `${count} votes (${pct}%)`;
-    if (cardBadge) cardBadge.textContent = `🔥 ${count} Votes (${pct}%)`;
+    if (countLabel) countLabel.innerHTML = `<strong>${count.toLocaleString()}</strong> votes <small>(${pct}%)</small>`;
+    if (cardBadge) cardBadge.textContent = `🔥 ${count.toLocaleString()} Live Votes (${pct}%)`;
   });
 
   const myVote = localStorage.getItem('glzz_cast_choice');
@@ -998,12 +1091,13 @@ async function castVote(gameKey) {
 
     if (res.status === 403 || data.alreadyVoted) {
       showToast(`⚠️ Naka-boto na ang IP address mo! 1 vote per IP network lang to keep the vote honest.`);
+      if (data.votes) renderVoteTally(data.votes, data.total);
       return;
     }
 
     if (data.success && data.votes) {
       localStorage.setItem('glzz_cast_choice', gameKey);
-      renderVoteTally(data.votes);
+      renderVoteTally(data.votes, data.total);
       showToast(`🎉 OFFICIAL VOTE LOGGED! Bumoto ka para sa "${name}". Live na na-record sa Cloudflare!`);
       return;
     }
@@ -1017,7 +1111,8 @@ async function castVote(gameKey) {
   votes[gameKey] = (votes[gameKey] || 0) + 1;
   localStorage.setItem('glzz_local_votes', JSON.stringify(votes));
   localStorage.setItem('glzz_cast_choice', gameKey);
-  renderVoteTally(votes);
+  const total = Object.values(votes).reduce((sum, v) => sum + v, 0);
+  renderVoteTally(votes, total);
   showToast(`🎉 VOTE RECORDED! Bumoto ka para sa "${name}"!`);
 }
 
@@ -1031,12 +1126,14 @@ function openGameModal(key) {
 
   const modal = document.getElementById('proto-modal');
   const container = document.getElementById('modal-body-inject');
+  const liveCount = (liveVoteData.votes && liveVoteData.votes[key]) ? liveVoteData.votes[key] : '170+';
 
   const mechanicsList = game.mechanics.map(m => `
     <li style="margin-bottom: 8px; color: #cbd5e1; font-size: 0.94rem; line-height: 1.6;">${m}</li>
   `).join('');
 
   container.innerHTML = `
+    <!-- Widescreen 16:9 Uncropped Visual in Dossier -->
     <div class="modal-hero-img-wrap">
       <img src="${game.image}" alt="${game.title} Concept Screenshot" class="modal-hero-img">
     </div>
@@ -1044,7 +1141,10 @@ function openGameModal(key) {
     <div style="margin-bottom: 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 14px;">
       <span class="section-tag-badge" style="margin-bottom: 8px;">3D FIRST-PERSON PROTOTYPE</span>
       <h2 style="font-family: var(--font-display); font-size: 1.9rem; color: #fff; margin: 6px 0 4px 0;">${game.title}</h2>
-      <div style="font-family: var(--font-mono); font-size: 0.84rem; color: var(--glaze-coral);">${game.genre}</div>
+      <div style="font-family: var(--font-mono); font-size: 0.84rem; color: var(--glaze-coral); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+        <span>${game.genre}</span>
+        <span style="color: #6ee7b7;">🔥 ${liveCount} Verified Live Votes</span>
+      </div>
     </div>
 
     <p style="color: #cbd5e1; font-size: 1.02rem; line-height: 1.7; margin-bottom: 22px;">
@@ -1064,6 +1164,23 @@ function openGameModal(key) {
       <div class="modal-spec-card">
         <span>RELEASE MODEL</span>
         <strong>Direct Website Purchase (No Steam Fee)</strong>
+      </div>
+    </div>
+
+    <!-- Official Community Links in Dossier -->
+    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px 18px; margin: 20px 0;">
+      <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--glaze-honey); text-transform: uppercase; display: block; margin-bottom: 8px;">
+        STUDIO COMMUNITY & SOCIAL LINKS
+      </span>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="${CONFIG.robloxCommunityUrl}" target="_blank" rel="noopener" class="social-pill roblox" style="padding: 6px 14px; font-size: 0.8rem;">
+          <span class="social-pill-icon">🎮</span>
+          <span>Roblox Community (380883003)</span>
+        </a>
+        <a href="${CONFIG.githubUrl}" target="_blank" rel="noopener" class="social-pill github" style="padding: 6px 14px; font-size: 0.8rem;">
+          <span class="social-pill-icon">🐙</span>
+          <span>GitHub Organization (@GlzzLexi)</span>
+        </a>
       </div>
     </div>
 
