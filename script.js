@@ -1,11 +1,19 @@
 /**
- * GlzzLexiBear Game Studios - Interactive Systems
- * 4 3D First-Person Desktop Prototypes, Community Greenlight Voting,
- * Glaze Sprinkles Canvas, Audio Synthesis & Dossiers
+ * GlzzLexiBear Game Studios
+ * Handcrafted vanilla JS by an indie dev & Computer Engineering student.
+ * Features:
+ * - Live Cloudflare Worker voting endpoint with IP deduplication
+ * - 4 3D First-Person prototype dossiers
+ * - Direct website distribution / payment simulation modal
+ * - Web Audio API bubble pop synthesizer
+ * - Glazed sprinkles background canvas
  */
 
-// --- 1. Confectionary Sound Effects (Web Audio API) ---
-class GlazeAudioFX {
+// --- 1. CONFIGURATION ---
+const API_BASE_URL = "https://glzz-voting-api.glzzjhn.workers.dev";
+
+// --- 2. AUDIO SYNTHESIS (Zero External MP3 Assets) ---
+class AudioSynthesizer {
   constructor() {
     this.ctx = null;
     this.enabled = false;
@@ -13,10 +21,8 @@ class GlazeAudioFX {
 
   init() {
     if (!this.ctx) {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (AudioContextClass) {
-        this.ctx = new AudioContextClass();
-      }
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.ctx = new AudioCtx();
     }
   }
 
@@ -29,15 +35,15 @@ class GlazeAudioFX {
     return this.enabled;
   }
 
-  playPop(freq = 480, duration = 0.06) {
+  playPop(freq = 520, duration = 0.06) {
     if (!this.enabled || !this.ctx) return;
     try {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
       osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(freq * 1.5, this.ctx.currentTime + duration);
-      
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.4, this.ctx.currentTime + duration);
+
       gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
 
@@ -45,46 +51,30 @@ class GlazeAudioFX {
       gain.connect(this.ctx.destination);
       osc.start();
       osc.stop(this.ctx.currentTime + duration);
-    } catch (e) {
-      // Audio autoplay policy fallback
-    }
+    } catch (e) {}
   }
 
-  playClick() {
-    this.playPop(520, 0.08);
-  }
-
-  playHover() {
-    this.playPop(740, 0.03);
-  }
-
-  playVote() {
+  playChime() {
     if (!this.enabled || !this.ctx) return;
-    const chords = [523.25, 659.25, 783.99, 1046.50];
-    chords.forEach((note, i) => {
-      setTimeout(() => this.playPop(note, 0.12), i * 60);
+    const notes = [523.25, 659.25, 783.99, 1046.50];
+    notes.forEach((freq, idx) => {
+      setTimeout(() => this.playPop(freq, 0.1), idx * 65);
     });
   }
 }
 
-const glazeAudio = new GlazeAudioFX();
+const sfx = new AudioSynthesizer();
 
-// --- 2. Interactive Glaze & Sprinkle Particle Canvas ---
-function initGlazeCanvas() {
+// --- 3. AMBIENT SPRINKLES CANVAS ---
+function initSprinklesCanvas() {
   const canvas = document.getElementById('glaze-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let width, height;
   let sprinkles = [];
-  const sprinkleCount = 50;
+  const count = 42;
 
-  const colors = [
-    '#ff758c', // Strawberry coral
-    '#ffa74f', // Honey amber
-    '#fff5ea', // Vanilla cream
-    '#6d3d22', // Cocoa
-    '#ffd8c0'  // Peach
-  ];
+  const palette = ['#ff758c', '#ffa74f', '#fff5ea', '#6d3d22', '#c084fc'];
 
   function resize() {
     width = canvas.width = window.innerWidth;
@@ -93,42 +83,41 @@ function initGlazeCanvas() {
   window.addEventListener('resize', resize);
   resize();
 
-  let mouseX = -1000;
-  let mouseY = -1000;
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+  let mouse = { x: -1000, y: -1000 };
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
   });
 
-  class Sprinkle {
+  class Particle {
     constructor() {
       this.reset();
     }
     reset() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.5;
-      this.vy = (Math.random() - 0.5) * 0.5;
-      this.length = Math.random() * 8 + 4;
-      this.thickness = Math.random() * 2.5 + 2;
+      this.vx = (Math.random() - 0.5) * 0.45;
+      this.vy = (Math.random() - 0.5) * 0.45;
+      this.len = Math.random() * 8 + 4;
+      this.thickness = Math.random() * 2 + 1.8;
       this.angle = Math.random() * Math.PI * 2;
-      this.vAngle = (Math.random() - 0.5) * 0.02;
-      this.color = colors[Math.floor(Math.random() * colors.length)];
-      this.alpha = Math.random() * 0.5 + 0.25;
-      this.isRound = Math.random() > 0.6;
+      this.spin = (Math.random() - 0.5) * 0.02;
+      this.color = palette[Math.floor(Math.random() * palette.length)];
+      this.alpha = Math.random() * 0.45 + 0.2;
+      this.isDot = Math.random() > 0.55;
     }
     update() {
       this.x += this.vx;
       this.y += this.vy;
-      this.angle += this.vAngle;
+      this.angle += this.spin;
 
-      const dx = this.x - mouseX;
-      const dy = this.y - mouseY;
+      const dx = this.x - mouse.x;
+      const dy = this.y - mouse.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 100) {
-        const force = (100 - dist) / 100;
-        this.x += (dx / dist) * force * 3;
-        this.y += (dy / dist) * force * 3;
+      if (dist < 90) {
+        const force = (90 - dist) / 90;
+        this.x += (dx / dist) * force * 2.5;
+        this.y += (dy / dist) * force * 2.5;
       }
 
       if (this.x < -20) this.x = width + 20;
@@ -143,286 +132,241 @@ function initGlazeCanvas() {
       ctx.globalAlpha = this.alpha;
       ctx.fillStyle = this.color;
 
-      if (this.isRound) {
+      if (this.isDot) {
         ctx.beginPath();
         ctx.arc(0, 0, this.thickness, 0, Math.PI * 2);
         ctx.fill();
       } else {
         ctx.beginPath();
-        ctx.roundRect(-this.length / 2, -this.thickness / 2, this.length, this.thickness, this.thickness / 2);
+        ctx.roundRect(-this.len / 2, -this.thickness / 2, this.len, this.thickness, this.thickness / 2);
         ctx.fill();
       }
       ctx.restore();
     }
   }
 
-  for (let i = 0; i < sprinkleCount; i++) {
-    sprinkles.push(new Sprinkle());
+  for (let i = 0; i < count; i++) {
+    sprinkles.push(new Particle());
   }
 
-  function loop() {
+  function render() {
     ctx.clearRect(0, 0, width, height);
-    sprinkles.forEach(s => {
-      s.update();
-      s.draw();
+    sprinkles.forEach(p => {
+      p.update();
+      p.draw();
     });
-    requestAnimationFrame(loop);
+    requestAnimationFrame(render);
   }
-
-  loop();
+  render();
 }
 
-// --- 3. The 4 Prototypes Database ---
+// --- 4. 4 PROTOTYPES DATABASE ---
 const PROTOTYPES = {
   nine_to_five: {
     title: "9-5 Get Me Out",
-    tagline: "Employee of the month. Your boss will do whatever it takes to keep you trapped.",
-    genre: "3D First-Person Workplace Stealth & Psychological Escape Thriller",
-    engine: "Desktop PC / DirectX 12 / High-Fidelity 3D First Person",
-    image: "assets/prototype_9_5.jpg",
-    logline: `You are the ultimate 9-to-5 corporate grinder: sharp, efficient, and successful. But your sinister boss knows you are planning to quit. Desperate to keep his top performer, he secretly sabotages your promotions, intercepts your resignation letters, and locks down the floor after hours.`,
+    subtitle: "Workplace Stealth & Psychological Escape Thriller",
+    pitch: `Naranasan mo na ba yung feeling na gusto mo nang mag-resign pero ayaw ka pakawalan ng boss mo? You are the most productive corporate employee, but your boss secretly sabotages your promotion papers, intercepts your resignation letters, and locks down the floor with CCTV cameras.`,
     mechanics: [
-      "Cubicle Stealth: Crouch behind partitions, peek over monitors, and time your moves around roaming HR drones and security cameras.",
-      "Evidence & Blackmail: Dig through corporate shredders, hack the boss's server room, and collect incriminating evidence of sabotage to earn your legal freedom.",
-      "Sanity & Overtime: The longer you remain trapped after 5:00 PM, the more the office warps with psychological paranoia."
+      "Cubicle Stealth: Crouch behind desks, peek over monitors, and time your moves around roaming HR staff and cameras.",
+      "Evidence & Blackmail: Dig through corporate shredders, unlock the manager's desk, and find evidence of illegal sabotage to earn your freedom.",
+      "Sanity Meter: The longer you're trapped past 5:00 PM, the more the office shifts into psychological surrealism."
     ],
-    controls: "WASD Movement, Left Shift Sprint, Left Ctrl Crouch, E Interact / Hack, Q/E Peek Lean, Mouse Look."
+    controls: "WASD Walk & Crouch, E Interact / Hack, Q/E Lean Peek, Mouse Look",
+    image: "assets/prototype_9_5.jpg"
   },
 
   study_picky: {
     title: "Study Picky",
-    tagline: "Final exam starts in 2 hours. Your brain has chosen to remember a 2012 jingle instead.",
-    genre: "3D First-Person ADHD & Memory Sensory Overload Survival Simulator",
-    engine: "Desktop PC / Physicalized 3D Desk Environment",
-    image: "assets/prototype_study.jpg",
-    logline: `You sit at your study desk under a warm lamp with an insurmountable stack of textbooks. Your goal is simple: study and get a passing grade. The problem? Your character suffers from extreme memory lapses, intrusive daydream apparitions, paper airplanes flying across your vision, and sensory overload.`,
+    subtitle: "ADHD Sensory Defense & Memory Survival Simulator",
+    pitch: `Final exam mo na in 2 hours pero lumilipad ang utak mo. Sit at your physical study desk under a warm lamp. Swat away flying intrusive thoughts, neon paper planes, and sensory distractions using your ruler before they erase your study progress!`,
     mechanics: [
-      "Daydream Defense: Swat away floating intrusive neon thoughts and distracting paper planes with your ruler before they erase your study progress.",
-      "Memory Flashcards: Retain formulas and facts before sudden brain fog washes them away.",
-      "Caffeine vs. Jitters: Sip coffee to boost focus speed, but balance your heart-rate meter to prevent catastrophic anxiety panics."
+      "Distraction Swatting: Hit daydream apparitions before they distract you and drain your focus bar.",
+      "Memory Flashcards: Retain complex equations before brain fog wipes your short-term memory.",
+      "Caffeine Balance: Drink coffee to study faster, but don't overdo it or your hands will shake uncontrollably."
     ],
-    controls: "Mouse Cursor Free-Look / Desk Hand Interaction, Space Swat Distraction, Tab Check Notes, Left Click Highlight Text."
+    controls: "Mouse Cursor Free-Look / Desk Interaction, Spacebar Swat Distraction, Tab Notes",
+    image: "assets/prototype_study.jpg"
   },
 
   mark_mark: {
     title: "Mark Mark What The",
-    tagline: "Two brains fighting over one pair of hands. Zero peace.",
-    genre: "3D First-Person Dual-Personality Chaotic Puzzle-Action Adventure",
-    engine: "Desktop PC / Dynamic Shader & Glitch Engine",
-    image: "assets/prototype_mark.jpg",
-    logline: `You play as Mark, a sharp-witted operative tasked with solving high-stakes escape scenarios. However, you share your body with a manic alter-ego who can hijack control of your hands at any second. Your left hand tries to defuse the bomb while your right hand suddenly decides to slap a guard or throw your tools across the room.`,
+    subtitle: "Chaotic Dual-Personality 3D Puzzle Action",
+    pitch: `You play as Mark, trying to solve high-stakes escape missions. The twist? Your unhinged alter-ego can hijack control of your right hand anytime. One moment you're trying to carefully lockpick a safe, the next moment your right arm punches a guard or chucks your keycard out the window!`,
     mechanics: [
-      "Dual Control Hijacking: Adapt when the screen glitches into magenta fury and your alter-ego takes over your movement and mouse input.",
-      "Chaotic Cooperation: Sometimes the alter-ego's unhinged strength is the only way to smash locked vault doors that Mark cannot crack.",
-      "Mirror Diagnostics: Talk to yourself in mirrors to negotiate temporary truces and synchronize your powers."
+      "Hand Hijacking: Adapt instantly when your right hand starts doing unpredictable actions on its own.",
+      "Chaotic Co-op: Sometimes the crazy alter-ego's brute strength is the only way to smash locked vault doors that Mark cannot open.",
+      "Mirror Truce: Speak to yourself in mirrors to negotiate temporary control windows."
     ],
-    controls: "WASD Walk, Left Click (Mark Action / Cyan), Right Click (Alter-Ego Punch / Magenta), Q Argue With Yourself."
+    controls: "WASD Walk, Left Click (Mark / Calm), Right Click (Alter-Ego / Chaos), Q Self-Talk",
+    image: "assets/prototype_mark.jpg"
   },
 
   guys_watch: {
     title: "Guys Watch Me Now",
-    tagline: "Play for the views. Obey the chat. Survive the stream.",
-    genre: "3D First-Person Interactive AI Livestreamer Simulator & Psychological Horror-Comedy",
-    engine: "Desktop PC / Real-Time Simulated AI Chat Engine",
-    image: "assets/prototype_streamer.jpg",
-    logline: `You play as Clyde, an ambitious desktop live streamer trying to make it big. Sitting at your battlestation, an interactive simulated AI audience analyzes your every camera angle, microphone inflection, and game skill in real time. To keep the viewer count alive, you must juggle streaming actual games while fulfilling escalating, unhinged chat dares.`,
+    subtitle: "Interactive AI Livestreamer Simulator & Horror-Comedy",
+    pitch: `You are Clyde, an ambitious desktop streamer. Sitting in front of your dual monitors, an interactive simulated AI audience watches and judges your every move in real time. To keep the viewer count from dropping to zero, you must balance playing games while fulfilling chaotic real-life apartment dares from the chat!`,
     mechanics: [
-      "Interactive AI Chat: Viewers roast your plays, spam custom memes, send TTS donations, and vote on what you must do next.",
-      "Escalating Apartment Dares: The chat demands you investigate weird noises in your dark hallway or order cursed midnight food deliveries.",
-      "Swatting & Clout: Balance going viral against staying safe as paranoid troll viewers threaten to swat your house."
+      "Interactive AI Chat: Viewers roast your plays, spam custom memes, send TTS donations, and vote on your next dare.",
+      "Apartment Dares: Chat dares you to investigate weird noises in your hallway or eat cursed midnight food deliveries.",
+      "Swatting & Clout: Balance viral fame against paranoid troll viewers trying to swat your apartment."
     ],
-    controls: "WASD Walk around apartment, Mouse Look, Left Click Keyboard/Mouse Gaming, F Adjust Stream Cam, T Answer Chat."
+    controls: "WASD Walk Apartment, Mouse Look, Left Click PC Gaming, F Stream Cam, T Chat",
+    image: "assets/prototype_streamer.jpg"
   }
 };
 
-// --- 4. Community Greenlight Voting System ---
-// Connected to live Cloudflare Worker API with IP anti-duplication
-const API_BASE_URL = "https://glzz-voting-api.glzzjhn.workers.dev"; 
-
-const INITIAL_VOTES = {
+// --- 5. LIVE VOTING (CLOUDFLARE WORKER + IP PROTECTION) ---
+const FALLBACK_VOTES = {
   nine_to_five: 184,
   study_picky: 162,
   mark_mark: 171,
   guys_watch: 198
 };
 
-function getLocalVoteData() {
-  const saved = localStorage.getItem('glzz_prototype_votes');
-  if (saved) {
-    try {
-      return JSON.parse(saved);
-    } catch (e) {}
-  }
-  return { ...INITIAL_VOTES };
-}
-
-function saveLocalVoteData(data) {
-  localStorage.setItem('glzz_prototype_votes', JSON.stringify(data));
-}
-
 async function fetchLiveVotes() {
-  if (!API_BASE_URL) {
-    updateVotingUI(getLocalVoteData());
-    return;
-  }
-
   try {
     const res = await fetch(`${API_BASE_URL}/api/votes`);
     if (res.ok) {
       const data = await res.json();
       if (data.success && data.votes) {
-        updateVotingUI(data.votes);
+        renderVoteTally(data.votes);
         return;
       }
     }
-  } catch (err) {
-    console.warn("Could not reach live voting backend, using local tallies", err);
+  } catch (e) {
+    console.warn("Backend unavailable, using cached tallies", e);
   }
-  updateVotingUI(getLocalVoteData());
+
+  // Local fallback
+  const cached = localStorage.getItem('glzz_local_votes');
+  renderVoteTally(cached ? JSON.parse(cached) : FALLBACK_VOTES);
 }
 
-function updateVotingUI(votes) {
-  const total = Object.values(votes).reduce((a, b) => a + b, 0);
+function renderVoteTally(votes) {
+  const total = Object.values(votes).reduce((sum, v) => sum + v, 0);
 
   Object.keys(votes).forEach(key => {
-    const count = votes[key];
+    const count = votes[key] || 0;
     const pct = total > 0 ? Math.round((count / total) * 100) : 25;
 
     const bar = document.getElementById(`bar-${key}`);
     const countLabel = document.getElementById(`count-${key}`);
-    const cardVoteLabel = document.getElementById(`votes-card-${key}`);
+    const cardBadge = document.getElementById(`votes-card-${key}`);
 
     if (bar) bar.style.width = `${pct}%`;
     if (countLabel) countLabel.textContent = `${count} votes (${pct}%)`;
-    if (cardVoteLabel) cardVoteLabel.textContent = `🔥 ${count} Votes (${pct}%)`;
+    if (cardBadge) cardBadge.textContent = `🔥 ${count} Votes (${pct}%)`;
   });
 
-  const userVote = localStorage.getItem('glzz_user_cast_vote');
-  if (userVote) {
+  const myVote = localStorage.getItem('glzz_cast_choice');
+  if (myVote) {
     document.querySelectorAll('.btn-vote').forEach(btn => {
       btn.classList.remove('voted');
-      const originalText = btn.getAttribute('data-original-text');
-      if (originalText) btn.textContent = originalText;
+      const original = btn.getAttribute('data-txt');
+      if (original) btn.textContent = original;
     });
 
-    const votedItem = document.querySelector(`.vote-item[data-game="${userVote}"] .btn-vote`);
-    if (votedItem) {
-      if (!votedItem.getAttribute('data-original-text')) {
-        votedItem.setAttribute('data-original-text', votedItem.textContent);
+    const activeBtn = document.querySelector(`.vote-row[data-game="${myVote}"] .btn-vote`);
+    if (activeBtn) {
+      if (!activeBtn.getAttribute('data-txt')) {
+        activeBtn.setAttribute('data-txt', activeBtn.textContent);
       }
-      votedItem.classList.add('voted');
-      votedItem.textContent = "Your Vote ✓";
+      activeBtn.classList.add('voted');
+      activeBtn.textContent = "Your Vote ✓";
     }
   }
 }
 
 async function castVote(gameKey) {
-  glazeAudio.playVote();
+  sfx.playChime();
   const game = PROTOTYPES[gameKey];
-  const gameTitle = game ? game.title : gameKey;
+  const name = game ? game.title : gameKey;
 
-  // 1. If live backend is configured
-  if (API_BASE_URL) {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/vote`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ game: gameKey })
-      });
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/vote`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ game: gameKey })
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (res.status === 403 || data.alreadyVoted) {
-        showGlazedToast(`⚠️ Your IP network has already cast a vote! Each player gets 1 vote to keep the competition fair.`);
-        return;
-      }
-
-      if (data.success && data.votes) {
-        localStorage.setItem('glzz_user_cast_vote', gameKey);
-        updateVotingUI(data.votes);
-        showGlazedToast(`🎉 OFFICIAL VOTE LOGGED! You voted for "${gameTitle}"! Backend recorded your vote.`);
-        return;
-      }
-    } catch (e) {
-      console.warn("Backend error, falling back to local storage vote", e);
+    if (res.status === 403 || data.alreadyVoted) {
+      showToast(`⚠️ Naka-boto na ang IP address mo! 1 vote per IP network lang to avoid spam.`);
+      return;
     }
+
+    if (data.success && data.votes) {
+      localStorage.setItem('glzz_cast_choice', gameKey);
+      renderVoteTally(data.votes);
+      showToast(`🎉 OFFICIAL VOTE RECORDED! Bumoto ka para sa "${name}". Live na na-log sa Cloudflare!`);
+      return;
+    }
+  } catch (err) {
+    console.warn("API request failed, fallback local", err);
   }
 
-  // 2. Local Fallback Mode
-  const votes = getLocalVoteData();
-  const previousVote = localStorage.getItem('glzz_user_cast_vote');
-
-  if (previousVote && votes[previousVote] && previousVote !== gameKey) {
-    votes[previousVote] = Math.max(0, votes[previousVote] - 1);
-  }
-
-  if (previousVote !== gameKey) {
-    votes[gameKey] = (votes[gameKey] || 0) + 1;
-  }
-
-  saveLocalVoteData(votes);
-  localStorage.setItem('glzz_user_cast_vote', gameKey);
-  updateVotingUI(votes);
-
-  showGlazedToast(`🎉 VOTE RECORDED! You voted for "${gameTitle}"! Connect Cloudflare Worker to enable global IP deduplication.`);
+  // Local fallback simulation
+  const cached = localStorage.getItem('glzz_local_votes');
+  const votes = cached ? JSON.parse(cached) : { ...FALLBACK_VOTES };
+  votes[gameKey] = (votes[gameKey] || 0) + 1;
+  localStorage.setItem('glzz_local_votes', JSON.stringify(votes));
+  localStorage.setItem('glzz_cast_choice', gameKey);
+  renderVoteTally(votes);
+  showToast(`🎉 VOTE RECORDED! Bumoto ka para sa "${name}"!`);
 }
 
-// --- 5. Prototype Dossier Modal System ---
-function openGameModal(key) {
-  glazeAudio.playClick();
+// --- 6. PROTOTYPE DOSSIER MODAL ---
+function openPrototypeModal(key) {
+  sfx.playPop(580);
   const game = PROTOTYPES[key];
   if (!game) return;
 
-  const modal = document.getElementById('game-modal');
-  const container = document.getElementById('modal-content');
+  const modal = document.getElementById('proto-modal');
+  const container = document.getElementById('modal-body-inject');
 
-  const mechanicsHtml = game.mechanics.map(m => `
-    <li style="margin-bottom: 10px; color: #cbd5e1; font-size: 0.94rem; line-height: 1.6;">${m}</li>
+  const mechanicsList = game.mechanics.map(m => `
+    <li style="margin-bottom: 8px; color: #cbd5e1; font-size: 0.92rem; line-height: 1.55;">${m}</li>
   `).join('');
 
   container.innerHTML = `
-    <div class="modal-hero-img-wrap">
-      <img src="${game.image}" alt="${game.title} Concept Screenshot" class="modal-hero-img">
+    <div class="modal-img-wrap">
+      <img src="${game.image}" alt="${game.title} Screenshot">
     </div>
 
-    <div style="margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 16px;">
-      <span class="section-tag-badge" style="margin-bottom: 8px;">3D FIRST-PERSON PROTOTYPE</span>
-      <h2 style="font-family: var(--font-display); font-size: 2rem; color: #fff; margin: 8px 0 4px 0;">${game.title}</h2>
-      <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--glaze-coral);">${game.genre}</div>
+    <div style="margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
+      <span class="section-badge" style="margin-bottom: 6px;">3D FIRST PERSON INDIE</span>
+      <h2 style="font-family: var(--font-display); font-size: 1.8rem; color: #fff; margin: 4px 0;">${game.title}</h2>
+      <div style="font-family: var(--font-code); font-size: 0.8rem; color: var(--coral);">${game.subtitle}</div>
     </div>
 
-    <p style="color: #fff; font-size: 1.08rem; font-style: italic; margin-bottom: 16px; border-left: 3px solid var(--glaze-honey); padding-left: 12px;">
-      "${game.tagline}"
+    <p style="color: #cbd5e1; font-size: 0.98rem; line-height: 1.65; margin-bottom: 20px;">
+      ${game.pitch}
     </p>
 
-    <p style="color: #94a3b8; font-size: 1.02rem; line-height: 1.7; margin-bottom: 24px;">
-      ${game.logline}
-    </p>
-
-    <h4 style="font-family: var(--font-display); font-size: 1.05rem; color: #fff; margin-bottom: 10px;">CORE GAMEPLAY SYSTEMS</h4>
-    <ul style="padding-left: 20px; margin-bottom: 24px;">
-      ${mechanicsHtml}
+    <h4 style="font-family: var(--font-heading); font-size: 0.98rem; color: #fff; margin-bottom: 8px;">CORE GAMEPLAY MECHANICS:</h4>
+    <ul style="padding-left: 20px; margin-bottom: 20px;">
+      ${mechanicsList}
     </ul>
 
-    <h4 style="font-family: var(--font-display); font-size: 1.05rem; color: #fff; margin-bottom: 10px;">DESKTOP PC CONTROLS & ARCHITECTURE</h4>
-    <div class="modal-spec-grid">
-      <div class="modal-spec-card">
-        <span>Control Scheme</span>
+    <div class="modal-specs-grid">
+      <div>
+        <span>PLANNED CONTROLS</span>
         <strong>${game.controls}</strong>
       </div>
-      <div class="modal-spec-card">
-        <span>Target Platform</span>
-        <strong>Steam (Windows PC) & Steam Deck</strong>
+      <div>
+        <span>RELEASE MODEL</span>
+        <strong>Direct Website Download (No Steam Cut)</strong>
       </div>
     </div>
 
-    <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 24px;">
-      <button class="btn btn-glazed" onclick="castVote('${key}'); closeGameModal();">
-        <span>Vote to Build This First!</span>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;">
+      <button class="btn btn-primary" onclick="castVote('${key}'); closePrototypeModal();">
+        <span>Vote to Build This One First!</span>
         <span class="btn-arrow">&rarr;</span>
       </button>
-      <button class="btn btn-outline" onclick="closeGameModal()">
-        <span>Back to Prototypes</span>
+      <button class="btn btn-secondary" onclick="closePrototypeModal()">
+        <span>Close</span>
       </button>
     </div>
   `;
@@ -432,142 +376,130 @@ function openGameModal(key) {
   document.body.style.overflow = 'hidden';
 }
 
-function closeGameModal() {
-  glazeAudio.playClick();
-  const modal = document.getElementById('game-modal');
+function closePrototypeModal() {
+  sfx.playPop(440);
+  const modal = document.getElementById('proto-modal');
   modal.classList.remove('active');
   modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = 'auto';
 }
 
 function closeModalOnBackdrop(e) {
-  if (e.target.id === 'game-modal') {
-    closeGameModal();
-  }
+  if (e.target.id === 'proto-modal') closePrototypeModal();
 }
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeGameModal();
+// --- 7. DIRECT PAYMENT MODAL SIMULATION ---
+function openDirectPaymentModal() {
+  sfx.playPop(620);
+  const modal = document.getElementById('payment-modal');
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePaymentModal() {
+  sfx.playPop(440);
+  const modal = document.getElementById('payment-modal');
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = 'auto';
+}
+
+function closePaymentModalOnBackdrop(e) {
+  if (e.target.id === 'payment-modal') closePaymentModal();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closePrototypeModal();
+    closePaymentModal();
+  }
 });
 
-// --- 6. Glazed Toast Notifications ---
-function showGlazedToast(msg, duration = 4000) {
-  const wrapper = document.getElementById('toast-wrapper');
-  if (!wrapper) return;
+// --- 8. TOAST NOTIFICATIONS ---
+function showToast(msg, duration = 3800) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
 
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.innerHTML = `
-    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-      <span style="font-size: 1.1rem;">🐻</span>
-      <strong style="font-family: var(--font-display); color: var(--glaze-coral); font-size: 0.88rem; letter-spacing: 0.5px;">GLZZLEXIBEAR STUDIOS</strong>
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `
+    <div style="font-family: var(--font-heading); color: var(--coral); font-size: 0.8rem; font-weight: 700; margin-bottom: 2px;">
+      🐻 GLZZLEXIBEAR DEV NOTE
     </div>
-    <div style="color: #cbd5e1; font-size: 0.92rem;">${msg}</div>
+    <div style="color: #e2e8f0; font-size: 0.88rem;">${msg}</div>
   `;
 
-  wrapper.appendChild(toast);
+  container.appendChild(t);
 
   setTimeout(() => {
-    toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(100%)';
+    t.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(10px)';
     setTimeout(() => {
-      if (toast.parentElement) toast.parentElement.removeChild(toast);
-    }, 400);
+      if (t.parentElement) t.parentElement.removeChild(t);
+    }, 300);
   }, duration);
 }
 
-// --- 7. Playtest Form Submission ---
-function handleFormSubmit(e) {
+// --- 9. CONTACT FORM HANDLER ---
+function handleContactSubmit(e) {
   e.preventDefault();
-  const name = document.getElementById('form-name').value;
-  const proto = document.getElementById('form-prototype').value;
-  glazeAudio.playVote();
-  showGlazedToast(`Welcome, ${name}! Your application for the "${proto}" desktop playtest has been received.`);
+  const name = document.getElementById('c-name').value;
+  sfx.playChime();
+  showToast(`Salamat, ${name}! Na-receive ko na ang feedback mo para sa game dev alpha.`);
   e.target.reset();
 }
 
-// --- 8. Audio Toggle ---
-function initAudioButton() {
-  const btn = document.getElementById('sfx-toggle');
-  if (!btn) return;
+// --- 10. NAVIGATION & AUDIO TOGGLE ---
+function initControls() {
+  const sfxBtn = document.getElementById('sfx-btn');
+  const sfxText = document.getElementById('sfx-text');
 
-  const label = btn.querySelector('.sfx-label');
-
-  btn.addEventListener('click', () => {
-    const isNowOn = glazeAudio.toggle();
-    if (isNowOn) {
-      btn.classList.add('active');
-      label.textContent = "SFX: ON";
-      showGlazedToast("🍬 Juicy sound effects enabled!");
-    } else {
-      btn.classList.remove('active');
-      label.textContent = "SFX: OFF";
-      showGlazedToast("Muted sound effects");
-    }
-  });
-
-  const hoverables = document.querySelectorAll('.btn, .prototype-card, .btn-vote, .social-pill');
-  hoverables.forEach(el => {
-    el.addEventListener('mouseenter', () => glazeAudio.playHover());
-  });
-}
-
-// --- 9. Navigation ---
-function initNavigation() {
-  const header = document.getElementById('header');
-  const toggle = document.getElementById('menu-toggle');
-  const menu = document.getElementById('nav-menu');
-  const links = document.querySelectorAll('.nav-link');
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
-
-  if (toggle && menu) {
-    toggle.addEventListener('click', () => {
-      menu.classList.toggle('open');
-      glazeAudio.playClick();
-    });
-
-    links.forEach(l => {
-      l.addEventListener('click', () => menu.classList.remove('open'));
+  if (sfxBtn) {
+    sfxBtn.addEventListener('click', () => {
+      const active = sfx.toggle();
+      if (active) {
+        sfxBtn.classList.add('active');
+        sfxText.textContent = "AUDIO: ON";
+        sfx.playChime();
+        showToast("Audio feedback enabled!");
+      } else {
+        sfxBtn.classList.remove('active');
+        sfxText.textContent = "AUDIO: OFF";
+        showToast("Audio muted");
+      }
     });
   }
 
-  const sections = document.querySelectorAll('section[id]');
-  window.addEventListener('scroll', () => {
-    const scrollY = window.pageYOffset;
-    sections.forEach(current => {
-      const h = current.offsetHeight;
-      const top = current.offsetTop - 140;
-      const id = current.getAttribute('id');
-      const target = document.querySelector(`.nav-menu a[href*="${id}"]`);
-      if (target) {
-        if (scrollY > top && scrollY <= top + h) {
-          target.classList.add('active');
-        } else {
-          target.classList.remove('active');
-        }
-      }
-    });
+  // Hover SFX
+  document.querySelectorAll('.btn, .proto-card, .btn-vote, .social-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => sfx.playPop(720, 0.02));
   });
+
+  // Mobile menu
+  const burger = document.getElementById('burger-btn');
+  const nav = document.getElementById('main-nav');
+
+  if (burger && nav) {
+    burger.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      sfx.playPop(520);
+    });
+
+    nav.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+  }
+
+  // Year
+  const yr = document.getElementById('year');
+  if (yr) yr.textContent = new Date().getFullYear();
 }
 
-function setYear() {
-  const y = document.getElementById('current-year');
-  if (y) y.textContent = new Date().getFullYear();
-}
-
-// Document Ready
+// --- DOM READY ---
 document.addEventListener('DOMContentLoaded', () => {
-  initGlazeCanvas();
-  initAudioButton();
-  initNavigation();
+  initSprinklesCanvas();
+  initControls();
   fetchLiveVotes();
-  setYear();
 });
