@@ -236,8 +236,8 @@ const PROTOTYPES = {
 };
 
 // --- 4. Community Greenlight Voting System ---
-// Set your deployed Cloudflare Worker or Render URL here (e.g. "https://glzz-voting-api.yourname.workers.dev")
-const API_BASE_URL = ""; 
+// Connected to live Cloudflare Worker API with IP anti-duplication
+const API_BASE_URL = "https://glzz-voting-api.glzzjhn.workers.dev"; 
 
 const INITIAL_VOTES = {
   nine_to_five: 184,

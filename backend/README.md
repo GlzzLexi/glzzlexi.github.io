@@ -11,19 +11,13 @@ To prevent duplicate votes using IP addresses, we need a lightweight backend end
 - **Built-in IP Detection**: Automatically extracts the true client IP via `request.headers.get("CF-Connecting-IP")`.
 - **Free Key-Value Storage**: Cloudflare KV (100k reads / 1k writes per day free).
 
-### ⚡ 60-Second Cloudflare Workers Setup (No CLI Required):
-1. Sign up for a free account at [Cloudflare](https://dash.cloudflare.com/).
-2. On the left sidebar, click **Workers & Pages** &rarr; **Create application** &rarr; **Create Worker**.
-3. Name it `glzz-voting-api` and click **Deploy**.
-4. Click **Edit code**.
-5. Copy everything from [`cloudflare-worker.js`](file:///C:/Users/USER/.gemini/antigravity/scratch/glzzlexi-website/backend/cloudflare-worker.js) and paste it into the editor replacing the default code.
-6. Click **Deploy**.
-7. *(Optional for permanent storage)*: In your worker settings under **Settings -> Variables -> KV Namespace Bindings**, create and bind a KV namespace named `VOTES_KV`.
-8. Copy your worker's live URL (e.g. `https://glzz-voting-api.yourname.workers.dev`).
-9. Paste that URL into [`script.js`](file:///C:/Users/USER/.gemini/antigravity/scratch/glzzlexi-website/script.js) at the top:
-   ```javascript
-   const API_BASE_URL = "https://glzz-voting-api.yourname.workers.dev";
-   ```
+### ⚡ 60-Second Cloudflare Workers Setup:
+Your live API is configured and connected at:
+`https://glzz-voting-api.glzzjhn.workers.dev`
+
+Endpoints:
+- `GET https://glzz-voting-api.glzzjhn.workers.dev/api/votes` (Fetch real-time tallies)
+- `POST https://glzz-voting-api.glzzjhn.workers.dev/api/vote` (Cast vote with IP anti-duplication)
 
 ---
 
