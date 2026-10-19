@@ -3,71 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GlzzLexi Studios | Independent Game Development & Desktop Gaming</title>
-  <meta name="description" content="GlzzLexi Studios is an independent gaming studio crafting immersive, high-octane games and pioneering the next wave of desktop gaming experiences.">
-  <meta name="keywords" content="GlzzLexi, gaming studio, desktop gaming, indie game dev, PC games, Steam games, game studio">
+  <title>GlzzLexiBear Studios | Sharp Wit. Sweet Glaze. — Desktop Game Development</title>
+  <meta name="description" content="GlzzLexiBear Studios is an independent gaming studio founded on sharp wit and sweet glaze — crafting juicy, high-octane indie and desktop PC games.">
+  <meta name="keywords" content="GlzzLexi, GlzzLexiBear, gaming studio, desktop gaming, indie game dev, PC games, Steam, sharp wit sweet glaze">
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b0d19'/><path d='M25 75 L50 25 L75 75 Z' stroke='%2300f2fe' stroke-width='8' fill='none'/><circle cx='50' cy='55' r='10' fill='%239d4edd'/></svg>">
+  <link rel="icon" type="image/png" href="assets/logo.png">
 </head>
-<body>
-  <!-- Ambient Audio & Canvas -->
-  <canvas id="ambient-canvas"></canvas>
-  <div class="cyber-scanlines" aria-hidden="true"></div>
-  <div class="glow-orb orb-1" aria-hidden="true"></div>
-  <div class="glow-orb orb-2" aria-hidden="true"></div>
+<body class="theme-glazed">
+  <!-- Interactive Glazed Sprinkles & Ambient Canvas -->
+  <canvas id="glaze-canvas"></canvas>
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
-  <!-- Header / Navigation -->
-  <header class="studio-header" id="header">
+  <!-- Header -->
+  <header class="site-header" id="header">
     <div class="container header-container">
-      <a href="#hero" class="brand-logo" aria-label="GlzzLexi Home">
-        <div class="logo-mark">
-          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="44" height="44" rx="12" fill="#0d1124" stroke="rgba(0, 242, 254, 0.3)" stroke-width="1.5"/>
-            <path d="M12 32L22 12L32 32H12Z" stroke="url(#logo-grad)" stroke-width="3.5" stroke-linejoin="round"/>
-            <circle cx="22" cy="24" r="4.5" fill="#a855f7"/>
-            <defs>
-              <linearGradient id="logo-grad" x1="12" y1="12" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#00f2fe"/>
-                <stop offset="1" stop-color="#a855f7"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-        <div class="brand-text">
-          <span class="brand-name">GLZZ<span class="gradient-text">LEXI</span></span>
-          <span class="brand-tag">GAME STUDIOS</span>
-        </div>
+      <a href="#hero" class="brand-link" aria-label="GlzzLexiBear Home">
+        <img src="assets/logo.png" alt="GlzzLexiBear Studios Logo" class="header-logo-img">
       </a>
 
-      <nav class="nav-links" id="nav-menu">
-        <a href="#hero" class="nav-item active">Home</a>
-        <a href="#desktop-expansion" class="nav-item">Desktop Vision</a>
-        <a href="#games" class="nav-item">Games</a>
-        <a href="#about" class="nav-item">About Studio</a>
-        <a href="#tech" class="nav-item">Engine & Tech</a>
-        <a href="#community" class="nav-item">Community</a>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#desktop-expansion" class="nav-link">Desktop Leap</a>
+        <a href="#games" class="nav-link">Games & Demos</a>
+        <a href="#philosophy" class="nav-link">Sharp & Sweet</a>
+        <a href="#studio" class="nav-link">Our Story</a>
+        <a href="#community" class="nav-link">Join Playtest</a>
       </nav>
 
       <div class="header-actions">
-        <button id="sfx-toggle" class="btn-icon" title="Toggle UI Audio Synthesis" aria-label="Toggle UI Audio">
-          <svg class="sfx-on-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-          </svg>
-          <svg class="sfx-off-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="23" y1="9" x2="17" y2="15"></line>
-            <line x1="17" y1="9" x2="23" y2="15"></line>
-          </svg>
+        <!-- Candy Sound Toggle -->
+        <button id="sfx-toggle" class="btn-sfx" title="Toggle Juicy Sound Effects" aria-label="Toggle UI Audio">
+          <span class="sfx-emoji">🍬</span>
+          <span class="sfx-label">SFX: OFF</span>
         </button>
-        <a href="#desktop-expansion" class="btn btn-primary btn-sm glow-hover">
-          <span>Wishlist Desktop</span>
-          <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+
+        <a href="#desktop-expansion" class="btn btn-glazed btn-sm">
+          <span>PC Flagship</span>
+          <span class="btn-icon">⚡</span>
         </a>
-        <button class="hamburger-btn" id="mobile-toggle" aria-label="Toggle navigation menu">
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open mobile navigation">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -75,128 +57,83 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
+    <!-- HERO SECTION -->
     <section class="hero-section" id="hero">
       <div class="container hero-container">
-        <div class="hero-content">
-          <div class="hero-badge">
-            <span class="pulsing-dot"></span>
-            <span class="badge-text">NOW EXPANDING INTO DESKTOP & PC GAMING</span>
+        <div class="hero-text-block">
+          <div class="studio-badge-pill">
+            <span class="sprinkle-dot"></span>
+            <span class="badge-title">OFFICIAL GAMING STUDIO — NOW EXPANDING TO DESKTOP PC</span>
           </div>
-          <h1 class="hero-title">
-            FORGING WORLDS.<br>
-            UNLEASHING <span class="gradient-text glitch-text" data-text="DESKTOP">DESKTOP</span> POWER.
+
+          <h1 class="hero-heading">
+            CRAFTED WITH<br>
+            <span class="glazed-coral">SHARP WIT.</span><br>
+            <span class="glazed-honey">SWEET GLAZE.</span>
           </h1>
-          <p class="hero-subtitle">
-            <strong>GlzzLexi</strong> is an independent game studio born to craft gameplay with punch, depth, and unapologetic attitude. From high-octane indie mechanics to cutting-edge desktop PC experiences designed for ultra-wide, high-FPS battlestations.
+
+          <p class="hero-lead">
+            Welcome to <strong>GlzzLexiBear Studios</strong>. We make games with irresistible charm on the surface, and punishing, frame-perfect depth underneath. Founded to push original indie creativity, we are now unleashing full-throttle games built natively for <strong>desktop PC & Steam battlestations</strong>.
           </p>
-          <div class="hero-cta-group">
-            <a href="#desktop-expansion" class="btn btn-primary btn-lg glow-pulse">
-              <span>Explore PC Flagship</span>
-              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/></svg>
+
+          <div class="hero-buttons">
+            <a href="#desktop-expansion" class="btn btn-glazed btn-lg">
+              <span>Explore Desktop Flagship</span>
+              <span class="btn-arrow">&rarr;</span>
             </a>
             <a href="#games" class="btn btn-outline btn-lg">
-              <span>View Game Portfolio</span>
+              <span>View All Games (<span id="total-games-count">4</span>)</span>
             </a>
           </div>
 
-          <div class="hero-stats">
-            <div class="stat-card">
-              <span class="stat-num">4K/144Hz</span>
-              <span class="stat-label">PC Optimization</span>
+          <div class="hero-specs-bar">
+            <div class="spec-pill">
+              <span class="spec-icon">🎮</span>
+              <div class="spec-info">
+                <strong>PC Native</strong>
+                <small>Steam & Windows 64-bit</small>
+              </div>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-card">
-              <span class="stat-num">100%</span>
-              <span class="stat-label">Independent Freedom</span>
+            <div class="spec-pill">
+              <span class="spec-icon">⚡</span>
+              <div class="spec-info">
+                <strong>144+ FPS</strong>
+                <small>Ultrawide & High-Refresh</small>
+              </div>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-card">
-              <span class="stat-num">Steam + PC</span>
-              <span class="stat-label">Desktop Ecosystem</span>
+            <div class="spec-pill">
+              <span class="spec-icon">🐻</span>
+              <div class="spec-info">
+                <strong>100% Indie</strong>
+                <small>Founder-Led Studio</small>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="hero-visual">
-          <div class="hero-art-wrapper">
-            <div class="hero-hologram">
-              <div class="holo-ring holo-ring-1"></div>
-              <div class="holo-ring holo-ring-2"></div>
-              <div class="game-controller-art">
-                <!-- Detailed Futuristic Desktop Gaming Rig & Controller SVG -->
-                <svg viewBox="0 0 400 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-vector">
-                  <!-- Desktop Monitor Silhouette -->
-                  <rect x="50" y="30" width="300" height="190" rx="16" fill="#0d1127" stroke="url(#hero-monitor-stroke)" stroke-width="2"/>
-                  <rect x="62" y="42" width="276" height="166" rx="10" fill="#080a14"/>
-                  
-                  <!-- Inside screen: Cyberpunk Skyline and Game HUD -->
-                  <path d="M62 170L100 130L140 150L190 100L250 145L290 120L338 165V208H62V170Z" fill="url(#hero-screen-grad)" opacity="0.8"/>
-                  <line x1="75" y1="65" x2="160" y2="65" stroke="#00f2fe" stroke-width="2" stroke-linecap="round"/>
-                  <line x1="75" y1="75" x2="120" y2="75" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
-                  <circle cx="295" cy="75" r="14" stroke="#00f2fe" stroke-dasharray="4 2" stroke-width="1.5" fill="none"/>
-                  <text x="200" y="125" text-anchor="middle" fill="#ffffff" font-family="'Orbitron', sans-serif" font-size="14" font-weight="bold" letter-spacing="3">AETHERIA: ZERO</text>
-                  <text x="200" y="145" text-anchor="middle" fill="#00f2fe" font-family="'JetBrains Mono', monospace" font-size="9" letter-spacing="2">PROJECT DESKTOP</text>
-
-                  <!-- Stand -->
-                  <path d="M185 220L180 260H220L215 220H185Z" fill="#151b36"/>
-                  <path d="M150 260H250L260 270H140L150 260Z" fill="#20274a" stroke="rgba(0, 242, 254, 0.4)" stroke-width="1"/>
-
-                  <!-- Floating Gaming Controller in foreground -->
-                  <g filter="url(#glow-filter)">
-                    <!-- Controller Base -->
-                    <path d="M120 230 C120 200, 150 190, 200 190 C250 190, 280 200, 280 230 C280 265, 260 300, 245 305 C230 310, 215 285, 200 285 C185 285, 170 310, 155 305 C140 300, 120 265, 120 230 Z" fill="#11162d" stroke="url(#hero-ctrl-stroke)" stroke-width="2.5"/>
-                    <!-- D-Pad -->
-                    <path d="M155 225 H165 V215 H175 V225 H185 V235 H175 V245 H165 V235 H155 Z" fill="#1f284d" stroke="#00f2fe" stroke-width="1"/>
-                    <!-- Thumbsticks -->
-                    <circle cx="175" cy="260" r="14" fill="#0c1022" stroke="#a855f7" stroke-width="2"/>
-                    <circle cx="175" cy="260" r="8" fill="#1b244d"/>
-                    <circle cx="225" cy="260" r="14" fill="#0c1022" stroke="#00f2fe" stroke-width="2"/>
-                    <circle cx="225" cy="260" r="8" fill="#1b244d"/>
-                    <!-- ABXY Buttons -->
-                    <circle cx="230" cy="225" r="4.5" fill="#ef4444"/>
-                    <circle cx="242" cy="215" r="4.5" fill="#eab308"/>
-                    <circle cx="218" cy="215" r="4.5" fill="#3b82f6"/>
-                    <circle cx="230" cy="205" r="4.5" fill="#10b981"/>
-                    <!-- Studio Crest Center -->
-                    <polygon points="200,215 208,230 192,230" fill="#a855f7"/>
-                  </g>
-
-                  <!-- Gradients -->
-                  <defs>
-                    <linearGradient id="hero-monitor-stroke" x1="50" y1="30" x2="350" y2="220" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#00f2fe"/>
-                      <stop offset="0.5" stop-color="#a855f7"/>
-                      <stop offset="1" stop-color="#00f2fe" stop-opacity="0.2"/>
-                    </linearGradient>
-                    <linearGradient id="hero-ctrl-stroke" x1="120" y1="190" x2="280" y2="305" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#00f2fe"/>
-                      <stop offset="1" stop-color="#ec4899"/>
-                    </linearGradient>
-                    <linearGradient id="hero-screen-grad" x1="62" y1="100" x2="338" y2="208" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#3b0764"/>
-                      <stop offset="0.5" stop-color="#1e1b4b"/>
-                      <stop offset="1" stop-color="#082f49"/>
-                    </linearGradient>
-                    <filter id="glow-filter" x="100" y="170" width="200" height="150" filterUnits="userSpaceOnUse">
-                      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#a855f7" flood-opacity="0.35"/>
-                    </filter>
-                  </defs>
-                </svg>
+        <div class="hero-visual-block">
+          <div class="hero-card-frame">
+            <!-- Centerpiece Logo Artwork Display -->
+            <div class="logo-hero-showcase">
+              <div class="glazed-ring ring-1"></div>
+              <div class="glazed-ring ring-2"></div>
+              
+              <div class="hero-logo-wrapper">
+                <img src="assets/logo.png" alt="GlzzLexiBear - Sharp Wit. Sweet Glaze." class="hero-main-logo">
               </div>
-            </div>
-            <div class="floating-badge badge-desktop">
-              <span class="icon">🖥️</span>
-              <div>
-                <strong>Desktop Native</strong>
-                <small>Keyboard + Mouse / Gamepad</small>
+
+              <!-- Floating Tactile Badges -->
+              <div class="floating-chip chip-steam">
+                <span class="chip-dot"></span>
+                <span>Steam Wishlist Planned</span>
               </div>
-            </div>
-            <div class="floating-badge badge-fps">
-              <span class="icon">⚡</span>
-              <div>
-                <strong>Uncapped FPS</strong>
-                <small>Ultrawide 21:9 Ready</small>
+
+              <div class="floating-chip chip-specs">
+                <span>DirectInput 8000Hz</span>
+              </div>
+
+              <div class="floating-chip chip-tagline">
+                <span>"Sweet to look at, lethal to play"</span>
               </div>
             </div>
           </div>
@@ -204,194 +141,219 @@
       </div>
     </section>
 
-    <!-- Desktop Expansion Spotlight Section -->
-    <section class="section desktop-spotlight" id="desktop-expansion">
+    <!-- SECTION 2: THE DESKTOP EXPANSION (FLAGSHIP) -->
+    <section class="section desktop-section" id="desktop-expansion">
       <div class="container">
-        <div class="section-tag-wrap">
-          <span class="section-tag">THE NEXT CHAPTER</span>
+        <div class="section-tag-row">
+          <span class="section-tag-badge">THE DESKTOP EVOLUTION</span>
         </div>
-        <h2 class="section-heading">EXPANDING INTO <span class="gradient-text">DESKTOP GAMING</span></h2>
-        <p class="section-subtext">
-          As the founder of GlzzLexi, the mission has evolved. While our origins gave us nimble creative freedom, modern desktop PC hardware lets us unleash unrestricted visual fidelity, systemic combat, and deep player immersion.
+        <h2 class="section-title">WHY EXPAND TO <span class="glazed-coral">DESKTOP GAMING?</span></h2>
+        <p class="section-intro">
+          Indie games belong on great desktop rigs. Expanding into desktop gives GlzzLexiBear the canvas we’ve always craved: raw GPU horsepower, tactile mechanical keyboard precision, uncompressed spatial audio, and deep Steam community modding.
         </p>
 
-        <div class="desktop-banner-grid">
-          <div class="desktop-featured-card">
-            <div class="featured-media-header">
-              <div class="media-tag">FLAGSHIP DESKTOP INITIATIVE</div>
-              <div class="status-indicator live"><span></span> PRE-PRODUCTION / ACTIVE DEV</div>
+        <!-- Flagship Feature Card -->
+        <div class="flagship-card">
+          <div class="flagship-top-bar">
+            <div class="flagship-badge">
+              <span class="bear-icon">🐻</span> FLAGSHIP PC PROJECT IN ACTIVE PRODUCTION
             </div>
-            
-            <div class="featured-content">
-              <div class="game-meta-pills">
-                <span class="pill pill-pc">PC DESKTOP</span>
-                <span class="pill pill-genre">SCI-FI ACTION RPG</span>
-                <span class="pill pill-engine">UNREAL ENGINE 5</span>
+            <div class="engine-badge">UNREAL ENGINE 5.4 + DX12</div>
+          </div>
+
+          <div class="flagship-grid">
+            <div class="flagship-info">
+              <div class="category-pills">
+                <span class="pill-berry">PC HACK & SLASH</span>
+                <span class="pill-honey">ISOMETRIC ROGUELIKE</span>
+                <span class="pill-cream">CONTROLLER & KBM</span>
               </div>
-              <h3 class="flagship-title">PROJECT AETHERIA: ZERO PROTOCOL</h3>
-              <p class="flagship-desc">
-                Set within a decaying orbital biosphere, take control of an experimental cybernetic runner. Featuring responsive physics-driven melee combat, high-speed vertical traversal, extensive keyboard & mouse precision mapping, and full ultra-wide 32:9 support.
+
+              <h3 class="flagship-game-title">SUGARFIST: PROTOCOL BEAR</h3>
+              <p class="flagship-summary">
+                A lightning-fast cyber-confectionary action game. You play as an augmented dessert-brawler clawing through a hyper-stylized subterranean candy megacity overrun by rogue defense droids. Sweet visuals mask surgical combat: bullet hell evasion, frame-tight parry windows, and dynamic speed-combo chaining.
               </p>
 
-              <div class="desktop-pillars-grid">
-                <div class="pillar-item">
-                  <div class="pillar-icon">🎯</div>
-                  <h4>Precision Desktop Controls</h4>
-                  <p>Fine-tuned mouse targeting, custom key-binding matrices, and zero artificial smoothing.</p>
+              <!-- Hardware Perks Grid -->
+              <div class="hardware-perks-grid">
+                <div class="perk-box">
+                  <div class="perk-emoji">🎯</div>
+                  <h4>Zero Input Latency</h4>
+                  <p>Native RawInput handling for ultra-fast response times on 1000Hz - 8000Hz gaming mice.</p>
                 </div>
-                <div class="pillar-item">
-                  <div class="pillar-icon">💎</div>
-                  <h4>Ray-Traced Fidelity</h4>
-                  <p>PBR shaders, volumetric lighting, and particle effects built to push modern GPUs.</p>
+                <div class="perk-box">
+                  <div class="perk-emoji">🖥️</div>
+                  <h4>21:9 & 32:9 Ready</h4>
+                  <p>Hand-crafted ultrawide HUD scaling with expanded field-of-view and zero letterboxing.</p>
                 </div>
-                <div class="pillar-item">
-                  <div class="pillar-icon">⚙️</div>
-                  <h4>Modding & Community</h4>
-                  <p>Planned workshop integration for community maps, custom skins, and scriptable modes.</p>
+                <div class="perk-box">
+                  <div class="perk-emoji">💥</div>
+                  <h4>Juicy Chaos Physics</h4>
+                  <p>Particle-heavy hit feedback, screen shakes with user sliders, and destructible neon candy obstacles.</p>
+                </div>
+                <div class="perk-box">
+                  <div class="perk-emoji">🕹️</div>
+                  <h4>Steam Deck Verified Target</h4>
+                  <p>Rock-solid 60 FPS profile tailored for handheld PC gamers on the move.</p>
                 </div>
               </div>
 
-              <div class="flagship-cta-row">
-                <button class="btn btn-primary" onclick="openGameModal('aetheria')">
-                  <span>View Project Dossier</span>
-                  <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/></svg>
+              <div class="flagship-actions">
+                <button class="btn btn-glazed" onclick="openGameModal('sugarfist')">
+                  <span>Open Full Project Dossier</span>
+                  <span class="btn-arrow">&rarr;</span>
                 </button>
-                <button class="btn btn-outline" onclick="showToast('Steam store page linking will go live with Alpha trailer!')">
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.005.105.005.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 12-5.373 12-12S18.605 0 11.979 0z"/>
-                  </svg>
+                <button class="btn btn-outline" onclick="showGlazedToast('Steam store page announcement is coming with our playable demo!')">
                   <span>Wishlist on Steam (Coming Soon)</span>
                 </button>
               </div>
             </div>
+
+            <div class="flagship-art-panel">
+              <div class="art-mockup-wrapper">
+                <div class="screen-header">
+                  <span class="screen-dot red"></span>
+                  <span class="screen-dot yellow"></span>
+                  <span class="screen-dot green"></span>
+                  <span class="screen-title">GLZZLEXIBEAR_DESKTOP_BUILD_v0.4.exe</span>
+                </div>
+                <div class="mockup-content">
+                  <div class="mockup-glaze-bg">
+                    <div class="pixel-bear-silhouette">
+                      <!-- Stylized bear emblem in SVG -->
+                      <svg viewBox="0 0 160 160" fill="none" class="bear-vector-svg">
+                        <circle cx="45" cy="45" r="24" fill="#6d3d22" stroke="#ff7388" stroke-width="4"/>
+                        <circle cx="45" cy="45" r="12" fill="#ffd8c0"/>
+                        <circle cx="115" cy="45" r="24" fill="#6d3d22" stroke="#ff7388" stroke-width="4"/>
+                        <circle cx="115" cy="45" r="12" fill="#ffd8c0"/>
+                        <circle cx="80" cy="90" r="56" fill="#6d3d22" stroke="#ffa552" stroke-width="4"/>
+                        <ellipse cx="80" cy="100" rx="32" ry="24" fill="#fff5ea"/>
+                        <circle cx="60" cy="78" r="8" fill="#121826"/>
+                        <circle cx="62" cy="76" r="3" fill="#ffffff"/>
+                        <circle cx="100" cy="78" r="8" fill="#121826"/>
+                        <circle cx="98" cy="76" r="3" fill="#ffffff"/>
+                        <path d="M72 96 C76 92, 84 92, 88 96 C85 104, 75 104, 72 96 Z" fill="#ff7388"/>
+                      </svg>
+                    </div>
+                    <div class="hud-stats-overlay">
+                      <div class="hud-chip">FPS: <span>165 LOCKED</span></div>
+                      <div class="hud-chip">RENDER: <span>4K LUMEN</span></div>
+                      <div class="hud-chip">COMBO: <span>x48 SWEET!</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Games Portfolio Showcase -->
+    <!-- SECTION 3: GAME CATALOG -->
     <section class="section games-section" id="games">
       <div class="container">
-        <div class="section-tag-wrap">
-          <span class="section-tag">CATALOG & EXPERIMENTS</span>
+        <div class="section-tag-row">
+          <span class="section-tag-badge">STUDIO VAULT</span>
         </div>
-        <h2 class="section-heading">GLZZLEXI <span class="gradient-text">GAME PORTFOLIO</span></h2>
-        <p class="section-subtext">
-          Explore our titles across desktop PC, mobile origins, and experimental gameplay labs.
+        <h2 class="section-title">THE GLZZLEXIBEAR <span class="glazed-honey">GAME CATALOG</span></h2>
+        <p class="section-intro">
+          Explore our complete roster of desktop PC releases, indie originals, and experimental Glzz Labs prototypes.
         </p>
 
-        <!-- Filter Buttons -->
-        <div class="portfolio-filter-bar">
-          <button class="filter-btn active" data-filter="all">All Titles (<span id="count-all">4</span>)</button>
-          <button class="filter-btn" data-filter="desktop">Desktop / PC (<span id="count-desktop">2</span>)</button>
-          <button class="filter-btn" data-filter="indie">Indie & Mobile (<span id="count-indie">1</span>)</button>
-          <button class="filter-btn" data-filter="labs">Glzz Labs (WIP) (<span id="count-labs">1</span>)</button>
+        <!-- Filter tabs -->
+        <div class="catalog-filters">
+          <button class="filter-tab active" data-filter="all">All Experiences (4)</button>
+          <button class="filter-tab" data-filter="desktop">Desktop / Steam (2)</button>
+          <button class="filter-tab" data-filter="indie">Original Indie (1)</button>
+          <button class="filter-tab" data-filter="labs">Glzz Labs (WIP) (1)</button>
         </div>
 
-        <!-- Game Cards Grid -->
-        <div class="games-grid">
-          <!-- Game 1 -->
-          <div class="game-card" data-category="desktop" onclick="openGameModal('aetheria')">
-            <div class="game-card-banner banner-aetheria">
-              <div class="game-status-tag tag-desktop">DESKTOP FLAGSHIP</div>
-              <div class="game-card-overlay">
-                <span class="click-to-view">Click to inspect dossier</span>
-              </div>
+        <!-- Cards Grid -->
+        <div class="cards-grid">
+          <!-- Game 1: SugarFist (Desktop) -->
+          <div class="game-item-card" data-category="desktop" onclick="openGameModal('sugarfist')">
+            <div class="card-cover cover-sugarfist">
+              <span class="cover-badge badge-desktop">DESKTOP FLAGSHIP</span>
+              <div class="hover-prompt">Click to Inspect Dossier</div>
             </div>
-            <div class="game-card-body">
-              <div class="game-tags">
-                <span class="tag">PC Action RPG</span>
-                <span class="tag">DirectX 12</span>
+            <div class="card-details">
+              <div class="genre-tag-row">
+                <span class="genre-tag">Fast-Paced Action</span>
+                <span class="genre-tag">PC / Steam</span>
               </div>
-              <h3 class="game-title">Aetheria: Zero Protocol</h3>
-              <p class="game-summary">
-                High-speed kinetic combat and vertical parkour in a fractured cyberpunk megastructure built exclusively for desktop performance.
+              <h3 class="game-heading">SugarFist: Protocol Bear</h3>
+              <p class="game-blurb">
+                High-speed isometric brawler pitting augmented teddy operatives against corrupted confectionery megastructures. Built for 144Hz desktop precision.
               </p>
-              <div class="game-card-footer">
-                <span class="platform-icons">
-                  <span title="Steam">🎮 Steam</span>
-                  <span title="Windows PC">💻 Windows</span>
-                </span>
-                <span class="card-link-text">Read More &rarr;</span>
+              <div class="card-foot">
+                <span class="foot-platform">🖥️ Windows / Steam</span>
+                <span class="foot-link">View Dossier &rarr;</span>
               </div>
             </div>
           </div>
 
-          <!-- Game 2 -->
-          <div class="game-card" data-category="desktop" onclick="openGameModal('hypervibe')">
-            <div class="game-card-banner banner-hypervibe">
-              <div class="game-status-tag tag-alpha">DESKTOP ALPHA</div>
-              <div class="game-card-overlay">
-                <span class="click-to-view">Click to inspect dossier</span>
-              </div>
+          <!-- Game 2: Glaze Runner (Desktop) -->
+          <div class="game-item-card" data-category="desktop" onclick="openGameModal('glazerunner')">
+            <div class="card-cover cover-glazerunner">
+              <span class="cover-badge badge-alpha">PC DEMO IN LAB</span>
+              <div class="hover-prompt">Click to Inspect Dossier</div>
             </div>
-            <div class="game-card-body">
-              <div class="game-tags">
-                <span class="tag">Anti-Grav Racing</span>
-                <span class="tag">Multiplayer</span>
+            <div class="card-details">
+              <div class="genre-tag-row">
+                <span class="genre-tag">Anti-Grav Racing</span>
+                <span class="genre-tag">Mechanical KBM</span>
               </div>
-              <h3 class="game-title">HyperVibe: Neon Drift</h3>
-              <p class="game-summary">
-                Supersonic anti-gravity arcade racing synced to synthetic dynamic soundtracks with ultra-wide desktop monitor optimizations.
+              <h3 class="game-heading">Glaze Runner: Overdrive</h3>
+              <p class="game-blurb">
+                Supersonic anti-gravity speedrunning through winding neon syrup tunnels. Tight analog steering and frame-perfect airbrake drifts.
               </p>
-              <div class="game-card-footer">
-                <span class="platform-icons">
-                  <span title="Steam">🎮 Steam</span>
-                  <span title="PC/Mac">🖥️ PC / Mac</span>
-                </span>
-                <span class="card-link-text">Read More &rarr;</span>
+              <div class="card-foot">
+                <span class="foot-platform">🎮 Steam / PC</span>
+                <span class="foot-link">View Dossier &rarr;</span>
               </div>
             </div>
           </div>
 
-          <!-- Game 3 -->
-          <div class="game-card" data-category="indie" onclick="openGameModal('echoes')">
-            <div class="game-card-banner banner-echoes">
-              <div class="game-status-tag tag-released">STUDIO DEBUT</div>
-              <div class="game-card-overlay">
-                <span class="click-to-view">Click to inspect dossier</span>
-              </div>
+          <!-- Game 3: Bear Witch Cafe (Original Indie) -->
+          <div class="game-item-card" data-category="indie" onclick="openGameModal('bearwitch')">
+            <div class="card-cover cover-bearwitch">
+              <span class="cover-badge badge-debut">ORIGINAL CLASSIC</span>
+              <div class="hover-prompt">Click to Inspect Dossier</div>
             </div>
-            <div class="game-card-body">
-              <div class="game-tags">
-                <span class="tag">Puzzle Adventure</span>
-                <span class="tag">Atmospheric</span>
+            <div class="card-details">
+              <div class="genre-tag-row">
+                <span class="genre-tag">Cozy RPG / Dungeon</span>
+                <span class="genre-tag">Desktop & Mobile</span>
               </div>
-              <h3 class="game-title">Echoes of Lexi</h3>
-              <p class="game-summary">
-                The studio's foundational mystery experience: uncover ancient astronomical clockwork machinery and timeless forgotten narratives.
+              <h3 class="game-heading">Bear Witch: Sweet Alchemist</h3>
+              <p class="game-blurb">
+                Bake enchanted pastries by sunrise, delve into procedural dessert catacombs by moonrise. Rich narrative, witty characters, and cozy aesthetics.
               </p>
-              <div class="game-card-footer">
-                <span class="platform-icons">
-                  <span title="PC & Mobile">📱 Mobile & PC</span>
-                </span>
-                <span class="card-link-text">Read More &rarr;</span>
+              <div class="card-foot">
+                <span class="foot-platform">📱 Mobile & PC</span>
+                <span class="foot-link">View Dossier &rarr;</span>
               </div>
             </div>
           </div>
 
-          <!-- Game 4 -->
-          <div class="game-card" data-category="labs" onclick="openGameModal('tactics')">
-            <div class="game-card-banner banner-tactics">
-              <div class="game-status-tag tag-lab">GLZZ LABS</div>
-              <div class="game-card-overlay">
-                <span class="click-to-view">Click to inspect dossier</span>
-              </div>
+          <!-- Game 4: HoneyGrid Tactics (Glzz Labs) -->
+          <div class="game-item-card" data-category="labs" onclick="openGameModal('honeygrid')">
+            <div class="card-cover cover-honeygrid">
+              <span class="cover-badge badge-labs">EXPERIMENTAL LAB</span>
+              <div class="hover-prompt">Click to Inspect Dossier</div>
             </div>
-            <div class="game-card-body">
-              <div class="game-tags">
-                <span class="tag">Turn-Based Tactics</span>
-                <span class="tag">Roguelite</span>
+            <div class="card-details">
+              <div class="genre-tag-row">
+                <span class="genre-tag">Turn-Based Strategy</span>
+                <span class="genre-tag">Desktop Sandbox</span>
               </div>
-              <h3 class="game-title">Glzz Tactics: Iron Grid</h3>
-              <p class="game-summary">
-                Experimental tabletop-inspired tactical squad skirmisher on desktop featuring customizable mechs and procedural combat grids.
+              <h3 class="game-heading">HoneyGrid Tactics</h3>
+              <p class="game-blurb">
+                Hexagonal squad warfare simulator with delicious kinetic chain-reactions, customizable bear squad mechs, and community level editor.
               </p>
-              <div class="game-card-footer">
-                <span class="platform-icons">
-                  <span title="Desktop">💻 Windows</span>
-                </span>
-                <span class="card-link-text">Read More &rarr;</span>
+              <div class="card-foot">
+                <span class="foot-platform">💻 Windows Prototype</span>
+                <span class="foot-link">View Dossier &rarr;</span>
               </div>
             </div>
           </div>
@@ -399,71 +361,124 @@
       </div>
     </section>
 
-    <!-- About Studio Section -->
-    <section class="section about-section" id="about">
+    <!-- SECTION 4: THE PHILOSOPHY (SHARP WIT vs. SWEET GLAZE) -->
+    <section class="section philosophy-section" id="philosophy">
       <div class="container">
-        <div class="about-grid">
-          <div class="about-text-col">
-            <div class="section-tag-wrap">
-              <span class="section-tag">BEHIND THE BRAND</span>
+        <div class="section-tag-row">
+          <span class="section-tag-badge">THE STUDIO MANIFESTO</span>
+        </div>
+        <h2 class="section-title">THE DUAL SOUL: <span class="glazed-coral">SHARP WIT.</span> <span class="glazed-honey">SWEET GLAZE.</span></h2>
+        <p class="section-intro">
+          Why does GlzzLexiBear look and feel unlike other game studios? Because we refuse to choose between charming personality and hardcore mechanical depth.
+        </p>
+
+        <div class="duality-container">
+          <div class="duality-card card-sharp">
+            <div class="duality-header">
+              <span class="duality-icon">🗡️</span>
+              <h3>SHARP WIT</h3>
+              <span class="duality-sub">The Mechanics & Brain</span>
             </div>
-            <h2 class="section-heading">FOUNDED WITH A PASSION FOR <span class="gradient-text">BOLD PLAY</span></h2>
-            <p class="lead-p">
-              GlzzLexi began as a solo indie vision — crafting games driven by personality, crisp mechanics, and unforgettable aesthetics.
+            <ul class="duality-list">
+              <li>
+                <strong>Frame-Tight Precision:</strong>
+                <p>Input buffering and parry windows calibrated down to single milliseconds.</p>
+              </li>
+              <li>
+                <strong>Desktop Power Without Apology:</strong>
+                <p>Built for mechanical switches, high polling rates, and uncapped FPS with zero artificial smoothing.</p>
+              </li>
+              <li>
+                <strong>Witty, Uncompromising Lore:</strong>
+                <p>Clever dialogue, cheeky subversions of gaming tropes, and memorable characters with attitude.</p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="duality-divider">
+            <div class="divider-circle">🐻</div>
+          </div>
+
+          <div class="duality-card card-sweet">
+            <div class="duality-header">
+              <span class="duality-icon">🍯</span>
+              <h3>SWEET GLAZE</h3>
+              <span class="duality-sub">The Art & Sensation</span>
+            </div>
+            <ul class="duality-list">
+              <li>
+                <strong>Irresistible Juicy Feedback:</strong>
+                <p>Squash & stretch physics, eye-popping confectionary particle bursts, and tactile hitstop.</p>
+              </li>
+              <li>
+                <strong>Vibrant, High-Contrast World:</strong>
+                <p>Rich strawberry corals, honey ambers, and milk chocolate tones that stand out from dreary grey games.</p>
+              </li>
+              <li>
+                <strong>Warm Community Hospitality:</strong>
+                <p>Direct devlogs from the founder, transparent development milestones, and open beta playtests.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: STUDIO ORIGIN -->
+    <section class="section studio-section" id="studio">
+      <div class="container">
+        <div class="studio-layout">
+          <div class="studio-text">
+            <div class="section-tag-row">
+              <span class="section-tag-badge">BEHIND GLZZLEXIBEAR</span>
+            </div>
+            <h2 class="section-title">BUILT FROM INDIE PASSION,<br>SCALING FOR <span class="glazed-honey">DESKTOP GLORY</span></h2>
+            <p class="studio-lead">
+              GlzzLexiBear was founded with one clear ambition: create games that make you smile the second you boot them up, and keep you sweating because the gameplay is so thrillingly tight.
             </p>
             <p>
-              Now stepping into the desktop arena, GlzzLexi aims to bridge the gap between nimble indie creativity and deep PC gaming hardware capabilities. We don't follow generic corporate game-dev templates; we iterate rapidly, listen to our player base, and build titles we obsessively want to play ourselves.
+              Starting as an independent studio experiment, we honed our design instincts by making punchy, responsive experiences. Today, our eyes are set firmly on desktop PC gaming. Modern PC gaming gives independent studios the greatest creative freedom on earth — direct distribution via Steam, dedicated enthusiast communities, and hardware capable of rendering stunning art in 4K at 144 frames per second.
             </p>
-
-            <div class="values-list">
-              <div class="value-item">
-                <div class="val-check">✦</div>
-                <div>
-                  <strong>No Bloatware, Pure Mechanics</strong>
-                  <p>Snappy input response, zero corporate filler, and gameplay loops that respect player time.</p>
-                </div>
-              </div>
-              <div class="value-item">
-                <div class="val-check">✦</div>
-                <div>
-                  <strong>PC Gamer Pride</strong>
-                  <p>Comprehensive graphics sliders, rebindable inputs, high refresh rate support, and borderless windowed glory.</p>
-                </div>
-              </div>
-              <div class="value-item">
-                <div class="val-check">✦</div>
-                <div>
-                  <strong>Community In The Trenches</strong>
-                  <p>Direct devlogs, transparent roadmaps, and alpha builds tested with genuine players.</p>
-                </div>
-              </div>
+            
+            <div class="founder-quote-box">
+              <p>"We don't do boring corporate game loops. If it doesn't have sharp wit in the design and sweet glaze in the feedback, it doesn't leave the studio."</p>
+              <div class="quote-author">— Founder, GlzzLexiBear Studios</div>
             </div>
           </div>
 
-          <div class="about-stats-col">
-            <div class="studio-origin-card">
-              <div class="card-glow-badge">GLZZLEXI ARCHIVES</div>
-              <h3>Studio Milestones</h3>
-              <div class="timeline">
-                <div class="timeline-step">
-                  <div class="t-dot"></div>
-                  <div class="t-date">Phase 1: Genesis</div>
-                  <div class="t-desc">GlzzLexi founded as an independent game studio. First concepts, prototypes, and gameplay mechanics developed.</div>
+          <div class="studio-roadmap">
+            <div class="roadmap-card">
+              <div class="roadmap-title">
+                <span>📍 STUDIO MILESTONES</span>
+              </div>
+              <div class="step-chain">
+                <div class="step-node done">
+                  <span class="node-indicator">✓</span>
+                  <div>
+                    <strong>Studio Genesis</strong>
+                    <p>GlzzLexiBear founded, visual identity & core game concepts created.</p>
+                  </div>
                 </div>
-                <div class="timeline-step">
-                  <div class="t-dot"></div>
-                  <div class="t-date">Phase 2: Debut & Community</div>
-                  <div class="t-desc">Release of debut mobile & lightweight indie experiences. Community Discord and core fan channels established.</div>
+                <div class="step-node done">
+                  <span class="node-indicator">✓</span>
+                  <div>
+                    <strong>Debut Releases</strong>
+                    <p>Early mobile and indie mechanics tested with core community members.</p>
+                  </div>
                 </div>
-                <div class="timeline-step current">
-                  <div class="t-dot active-glow"></div>
-                  <div class="t-date">Phase 3: The Desktop Leap (Current)</div>
-                  <div class="t-desc">Expanding directly into desktop gaming (Steam & PC), upgrading to high-fidelity pipelines, and launching the official studio web presence.</div>
+                <div class="step-node active">
+                  <span class="node-indicator">★</span>
+                  <div>
+                    <strong>The Desktop Leap (Current)</strong>
+                    <p>Official studio site launch, GitHub custom domain setup, and development of our flagship PC title SugarFist.</p>
+                  </div>
                 </div>
-                <div class="timeline-step">
-                  <div class="t-dot"></div>
-                  <div class="t-date">Phase 4: Steam Alpha & Beyond</div>
-                  <div class="t-desc">Public playtests, Steam demo festival debuts, and community-driven desktop modding integrations.</div>
+                <div class="step-node future">
+                  <span class="node-indicator">○</span>
+                  <div>
+                    <strong>Steam Demo & Playtests</strong>
+                    <p>Public Steam demo debut, creator playtests, and community modding tools.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -472,90 +487,58 @@
       </div>
     </section>
 
-    <!-- Engine & Tech Specs Section -->
-    <section class="section tech-section" id="tech">
-      <div class="container">
-        <div class="section-tag-wrap">
-          <span class="section-tag">STUDIO PIPELINE</span>
-        </div>
-        <h2 class="section-heading">TECH STACK BUILT FOR <span class="gradient-text">DESKTOP RIGS</span></h2>
-        <p class="section-subtext">
-          Building for PC desktop means utilizing modern rendering pipelines and rock-solid toolchains.
-        </p>
-
-        <div class="tech-grid">
-          <div class="tech-card">
-            <div class="tech-icon">⚡</div>
-            <h3>Unreal Engine 5 & C++</h3>
-            <p>Nanite geometry, Lumen real-time global illumination, and high-performance native C++ gameplay systems.</p>
-          </div>
-          <div class="tech-card">
-            <div class="tech-icon">🖥️</div>
-            <h3>Ultrawide & Multi-Monitor</h3>
-            <p>Full support for 21:9 and 32:9 aspect ratios with custom HUD scaling and non-stretched FOV.</p>
-          </div>
-          <div class="tech-card">
-            <div class="tech-icon">🎛️</div>
-            <h3>Low Latency I/O</h3>
-            <p>DirectInput and Raw Input support for high polling-rate gaming mice (1000Hz - 8000Hz) and precision gamepads.</p>
-          </div>
-          <div class="tech-card">
-            <div class="tech-icon">🔊</div>
-            <h3>Spatial 3D Audio</h3>
-            <p>Positional ambisonics and dynamic HRTF audio mixing for pin-point directional awareness in combat.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Community & Contact Section -->
+    <!-- SECTION 6: COMMUNITY & PLAYTEST SIGN-UP -->
     <section class="section community-section" id="community">
       <div class="container">
-        <div class="community-box">
+        <div class="community-banner">
           <div class="community-grid">
-            <div class="community-info">
-              <span class="section-tag">JOIN THE INNER CIRCLE</span>
-              <h2 class="comm-title">BE FIRST ON THE DESKTOP TEST ROSTER</h2>
-              <p>
-                Get behind-the-scenes devlogs, exclusive desktop alpha playtest keys, and direct chat with the founder and developers.
+            <div class="comm-text-side">
+              <span class="section-tag-badge">BE A FIRST-WAVE TESTER</span>
+              <h2 class="comm-head">JOIN THE DESKTOP ALPHA ROSTER</h2>
+              <p class="comm-sub">
+                Help test our desktop games on your real PC rig! Get early Steam keys, private Discord access, and shape the combat balance before the rest of the world plays.
               </p>
-              <div class="social-links-row">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-btn" title="GitHub Repository & Dev">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                  <span>GitHub</span>
+
+              <div class="social-pills">
+                <a href="https://store.steampowered.com" target="_blank" rel="noopener" class="social-pill" title="Steam Profile">
+                  <span>🎮 Steam Studio Hub</span>
                 </a>
-                <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-btn" title="Discord Community">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-                  <span>Discord</span>
+                <a href="https://discord.com" target="_blank" rel="noopener" class="social-pill" title="Discord Server">
+                  <span>💬 Discord Lounge</span>
                 </a>
-                <a href="https://store.steampowered.com" target="_blank" rel="noopener noreferrer" class="social-btn" title="Steam Creator Profile">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.005.105.005.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 12-5.373 12-12S18.605 0 11.979 0z"/></svg>
-                  <span>Steam Hub</span>
+                <a href="https://github.com" target="_blank" rel="noopener" class="social-pill" title="GitHub Code & Web">
+                  <span>🐙 GitHub</span>
                 </a>
               </div>
             </div>
 
-            <div class="community-form-wrap">
-              <form id="contact-form" class="studio-form" onsubmit="handleFormSubmit(event)">
-                <h3>Apply for Desktop Playtest / Contact Studio</h3>
-                <div class="form-group">
-                  <label for="user-name">Your Name / Handle</label>
-                  <input type="text" id="user-name" placeholder="e.g. NeoLexi_99" required>
+            <div class="comm-form-side">
+              <form class="glazed-form" id="playtest-form" onsubmit="handleFormSubmit(event)">
+                <h3>Apply for Private PC Playtest</h3>
+                
+                <div class="form-row">
+                  <label for="form-name">Player Handle / Gamertag</label>
+                  <input type="text" id="form-name" placeholder="e.g. GlazedBear_42" required>
                 </div>
-                <div class="form-group">
-                  <label for="user-email">Email Address</label>
-                  <input type="email" id="user-email" placeholder="gamer@domain.com" required>
+
+                <div class="form-row">
+                  <label for="form-email">Email (for Steam Key notification)</label>
+                  <input type="email" id="form-email" placeholder="gamer@battlestation.net" required>
                 </div>
-                <div class="form-group">
-                  <label for="user-rig">Gaming Hardware / Rig (Optional)</label>
-                  <input type="text" id="user-rig" placeholder="e.g. RTX 4070 / Ryzen 7 / 32GB RAM">
+
+                <div class="form-row">
+                  <label for="form-specs">PC Hardware Specs</label>
+                  <input type="text" id="form-specs" placeholder="e.g. RTX 4070 / Ryzen 7 7800X3D / 32GB RAM">
                 </div>
-                <div class="form-group">
-                  <label for="user-msg">Message / Feedback / Pitch</label>
-                  <textarea id="user-msg" rows="3" placeholder="Tell us what kind of desktop experiences you love..."></textarea>
+
+                <div class="form-row">
+                  <label for="form-genre">What Desktop Games Do You Play Most?</label>
+                  <input type="text" id="form-genre" placeholder="e.g. Hades, Dead Cells, Sekiro, Balatro...">
                 </div>
-                <button type="submit" class="btn btn-primary btn-block glow-hover">
-                  <span>Submit to GlzzLexi</span>
+
+                <button type="submit" class="btn btn-glazed btn-block">
+                  <span>Submit Application</span>
+                  <span class="btn-arrow">&rarr;</span>
                 </button>
               </form>
             </div>
@@ -565,52 +548,54 @@
     </section>
   </main>
 
-  <!-- Game Details Dossier Modal -->
+  <!-- GAME DOSSIER MODAL -->
   <div id="game-modal" class="modal-backdrop" aria-hidden="true" onclick="closeModalOnBackdrop(event)">
-    <div class="modal-window">
-      <button class="modal-close-btn" onclick="closeGameModal()" aria-label="Close modal">&times;</button>
-      <div id="modal-body-content">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeGameModal()" aria-label="Close Dossier">&times;</button>
+      <div id="modal-content">
         <!-- Injected via JavaScript -->
       </div>
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
-  <div id="toast-container" class="toast-container"></div>
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-wrapper" class="toast-wrapper"></div>
 
-  <!-- Footer -->
-  <footer class="studio-footer">
-    <div class="container footer-container">
-      <div class="footer-brand">
-        <div class="brand-text">
-          <span class="brand-name">GLZZ<span class="gradient-text">LEXI</span></span>
-          <span class="brand-tag">GAMES & INTERACTIVE</span>
-        </div>
-        <p class="footer-copy">
-          &copy; <span id="year">2026</span> GlzzLexi Studios. All rights reserved.<br>
-          Crafted with passion for independent game development & desktop gaming power.
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand-side">
+        <img src="assets/logo.png" alt="GlzzLexiBear Studios" class="footer-logo">
+        <p class="footer-tagline">
+          Sharp Wit. Sweet Glaze.<br>
+          Independent game development crafted for players with taste.
         </p>
+        <div class="footer-copy">
+          &copy; <span id="current-year">2026</span> GlzzLexiBear Studios. All rights reserved.
+        </div>
       </div>
 
-      <div class="footer-nav">
+      <div class="footer-links-grid">
         <div class="footer-col">
           <h4>Navigation</h4>
           <a href="#hero">Home</a>
-          <a href="#desktop-expansion">Desktop Expansion</a>
-          <a href="#games">Games Portfolio</a>
-          <a href="#about">About GlzzLexi</a>
+          <a href="#desktop-expansion">Desktop Leap</a>
+          <a href="#games">Game Catalog</a>
+          <a href="#philosophy">The Philosophy</a>
+          <a href="#studio">Studio Story</a>
         </div>
         <div class="footer-col">
-          <h4>Platform Hubs</h4>
-          <a href="#desktop-expansion">Steam Profile</a>
+          <h4>Platforms</h4>
+          <a href="#desktop-expansion">Steam PC</a>
           <a href="#games">Windows Desktop</a>
+          <a href="#games">Steam Deck</a>
           <a href="https://github.com" target="_blank" rel="noopener">GitHub Project</a>
         </div>
         <div class="footer-col">
-          <h4>Studio Host</h4>
-          <p class="host-info">
-            Hosted via <span class="badge-subtle">GitHub Pages</span><br>
-            Equipped with Custom Domain Support.
+          <h4>Hosting & Domain</h4>
+          <p class="footer-note">
+            Powered by <strong>GitHub Pages</strong>.<br>
+            Connected to Custom Domain via GitHub Student Developer Pack.
           </p>
         </div>
       </div>
